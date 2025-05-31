@@ -17,3 +17,9 @@ app.listen(PORT, (error) => {
         console.log(`Server is listening on: ${baseUrl}`);
     }
 });
+
+
+// Test route
+app.get('/test-route', (req, res, next) => {
+    res.send("<h1>Test Route</h1>");
+})
