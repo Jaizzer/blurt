@@ -1,0 +1,16 @@
+{
+  "name": "blurt",
+  "version": "1.0.0",
+  "description": "Say it. Regret it. Repeat.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  }
+}
