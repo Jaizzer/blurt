@@ -21,6 +21,9 @@ app.listen(PORT, (error) => {
     }
 });
 
+// Serve public files
+app.use(express.static(path.join(__dirname, "public")));
+
 // Setup views
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
