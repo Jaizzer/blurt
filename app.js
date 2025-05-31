@@ -18,6 +18,10 @@ app.listen(PORT, (error) => {
     }
 });
 
+// Setup views
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
 
 // Test route
 app.get('/test-route', (req, res, next) => {
