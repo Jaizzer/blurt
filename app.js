@@ -1,3 +1,6 @@
+// Load file path management  module
+const path = require('path');
+
 // Load environment variables
 const dotenv = require("dotenv");
 dotenv.config();
