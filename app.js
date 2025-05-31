@@ -34,6 +34,10 @@ app.get('/test-route', (req, res, next) => {
     res.send("<h1>Test Route</h1>");
 })
 
+// Root router
+const rootRouter = require("./routes/rootRouter");
+app.use("/", rootRouter);
+
 
 // Main error-handling middleware
 app.use((err, req, res, next) => {
