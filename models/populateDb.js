@@ -1,0 +1,96 @@
+const { Client } = require('pg');
+const path = require('path');
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+
+const query = `
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    first_name TEXT NOT NULL,
+    last_name TEXT,
+    username VARCHAR(26) NOT NULL,
+    password_hash TEXT NOT NULL,
+    salt TEXT NOT NULL,
+    isAdmin BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE IF NOT EXISTS feelings (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name TEXT NOT NULL,
+    emoji TEXT
+);
+
+INSERT INTO feelings (name, emoji) 
+VALUES 
+    ('loved', '🥰'), 
+    ('sad', '😔'), 
+    ('angry', '😤'), 
+    ('nervous', '😬'), 
+    ('cool', '😎'), 
+    ('silly', '🤪'), 
+    ('sick', '🤒'), 
+    ('celebratory', '🥳');
+
+CREATE TABLE IF NOT EXISTS posts (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    title VARCHAR(100),
+    content TEXT,
+    user_id INTEGER,
+    date_uploaded TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    date_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    feeling_id INTEGER,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (feeling_id) REFERENCES feelings(id)
+);
+
+CREATE TABLE IF NOT EXISTS post_likes (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id INTEGER,
+    post_id INTEGER,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (post_id) REFERENCES posts(id)
+);
+`;
+
+async function main() {
+    let client;
+    try {
+        const connectionString =
+            process.argv[2] === "PRODUCTION"
+                ? process.env.PRODUCTION_DB_URL
+                : process.env.LOCAL_DB_URL;
+
+        if (!connectionString) {
+            throw new Error(
+                "Database URL not defined in environment variables.",
+            );
+        }
+
+        client = new Client({
+            connectionString: connectionString,
+            ssl:
+                process.argv[2] === "PRODUCTION"
+                    ? {
+                        rejectUnauthorized: false,
+                    }
+                    : false,
+        });
+
+        await client.connect();
+
+        await client.query(query);
+
+        console.log(`Database setup complete.`);
+    } catch (error) {
+        console.error(`Error during database setup. ${error}`);
+    } finally {
+        if (client) {
+            try {
+                await client.end();
+                console.log(`Database connection closed successfully.`);
+            } catch (endError) {
+                console.error(`Error closing database connection. ${endError}`);
+            }
+        }
+    }
+}
+main();
