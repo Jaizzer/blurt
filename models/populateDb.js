@@ -51,6 +51,24 @@ CREATE TABLE IF NOT EXISTS post_likes (
 );
 `;
 
+const query2 = `
+CREATE TABLE IF NOT EXISTS comments (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id INTEGER,
+    post_id INTEGER,
+    content TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (post_id) REFERENCES posts(id)
+);
+
+CREATE TABLE IF NOT EXISTS comment_likes (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id INTEGER,
+    comment_id INTEGER,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (comment_id) REFERENCES comments(id)
+);
+`
 async function main() {
     let client;
     try {
@@ -77,7 +95,7 @@ async function main() {
 
         await client.connect();
 
-        await client.query(query);
+        await client.query(query2);
 
         console.log(`Database setup complete.`);
     } catch (error) {
