@@ -30,3 +30,22 @@ app.set("views", path.join(__dirname, "views"));
 app.get('/test-route', (req, res, next) => {
     res.send("<h1>Test Route</h1>");
 })
+
+
+// Main error-handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    const statusCode = err.statusCode || err.status || 500;
+    const message = err.message || "Internal server error";
+    console.log(message);
+    res.status(statusCode).render("error", {
+        title: "404 Error",
+        message: "Internal Server Error",
+    });
+});
+
+// Error handling for uncaught exceptions
+process.on("uncaughtException", (error) => {
+    console.error(`Uncaught exception: ${error}`);
+    process.exit(1);
+});
