@@ -5,6 +5,10 @@ const path = require('path');
 const dotenv = require("dotenv");
 dotenv.config();
 
+// Load the dependencies for handling multipart/form data
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
+
 // Setup the server
 const express = require("express");
 const app = express();
