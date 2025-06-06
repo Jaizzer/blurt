@@ -33,11 +33,6 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 
-// Test route
-app.get('/test-route', (req, res, next) => {
-    res.send("<h1>Test Route</h1>");
-})
-
 // Root router
 const rootRouter = require("./routes/rootRouter");
 app.use("/", rootRouter);
