@@ -9,6 +9,9 @@ dotenv.config();
 const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 
+// Load ejs layout
+const expressLayouts = require('express-ejs-layouts');
+
 // Setup the server
 const express = require("express");
 const app = express();
@@ -27,6 +30,9 @@ app.listen(PORT, (error) => {
 
 // Serve public files
 app.use(express.static(path.join(__dirname, "public")));
+
+// Use ejs layouts
+app.use(expressLayouts);
 
 // Setup views
 app.set("view engine", "ejs");
