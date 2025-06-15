@@ -75,6 +75,13 @@ ALTER TABLE users
 DROP COLUMN salt;
 `;
 
+const query4 = `
+ALTER TABLE users
+DROP COLUMN first_name,
+DROP COLUMN last_name,
+DROP COLUMN isadmin;
+`;
+
 async function main() {
 	let client;
 	try {
@@ -101,7 +108,7 @@ async function main() {
 
 		await client.connect();
 
-		await client.query(query3);
+		await client.query(query4);
 
 		console.log(`Database setup complete.`);
 	} catch (error) {
