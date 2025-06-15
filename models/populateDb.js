@@ -82,6 +82,11 @@ DROP COLUMN last_name,
 DROP COLUMN isadmin;
 `;
 
+const query5 = `
+ALTER TABLE users
+ADD email VARCHAR(320);
+`;
+
 async function main() {
 	let client;
 	try {
@@ -108,7 +113,7 @@ async function main() {
 
 		await client.connect();
 
-		await client.query(query4);
+		await client.query(query5);
 
 		console.log(`Database setup complete.`);
 	} catch (error) {
