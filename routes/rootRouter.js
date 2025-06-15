@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const rootRouter = Router();
-const rootControllers = require("../controllers/rootControllers");
+const rootControllers = require("../controllers/rootController");
 
 rootRouter.get("/", rootControllers.rootGet);
 
