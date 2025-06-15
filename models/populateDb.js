@@ -1,5 +1,5 @@
-const { Client } = require('pg');
-const path = require('path');
+const { Client } = require("pg");
+const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const query = `
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS comment_likes (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (comment_id) REFERENCES comments(id)
 );
-`
+`;
 
 const query3 = `
 ALTER TABLE users
@@ -76,45 +76,45 @@ DROP COLUMN salt;
 `;
 
 async function main() {
-    let client;
-    try {
-        const connectionString =
-            process.argv[2] === "PRODUCTION"
-                ? process.env.PRODUCTION_DB_URL
-                : process.env.LOCAL_DB_URL;
+	let client;
+	try {
+		const connectionString =
+			process.argv[2] === "PRODUCTION"
+				? process.env.PRODUCTION_DB_URL
+				: process.env.LOCAL_DB_URL;
 
-        if (!connectionString) {
-            throw new Error(
-                "Database URL not defined in environment variables.",
-            );
-        }
+		if (!connectionString) {
+			throw new Error(
+				"Database URL not defined in environment variables."
+			);
+		}
 
-        client = new Client({
-            connectionString: connectionString,
-            ssl:
-                process.argv[2] === "PRODUCTION"
-                    ? {
-                        rejectUnauthorized: false,
-                    }
-                    : false,
-        });
+		client = new Client({
+			connectionString: connectionString,
+			ssl:
+				process.argv[2] === "PRODUCTION"
+					? {
+							rejectUnauthorized: false,
+					  }
+					: false,
+		});
 
-        await client.connect();
+		await client.connect();
 
-        await client.query(query3);
+		await client.query(query3);
 
-        console.log(`Database setup complete.`);
-    } catch (error) {
-        console.error(`Error during database setup. ${error}`);
-    } finally {
-        if (client) {
-            try {
-                await client.end();
-                console.log(`Database connection closed successfully.`);
-            } catch (endError) {
-                console.error(`Error closing database connection. ${endError}`);
-            }
-        }
-    }
+		console.log(`Database setup complete.`);
+	} catch (error) {
+		console.error(`Error during database setup. ${error}`);
+	} finally {
+		if (client) {
+			try {
+				await client.end();
+				console.log(`Database connection closed successfully.`);
+			} catch (endError) {
+				console.error(`Error closing database connection. ${endError}`);
+			}
+		}
+	}
 }
 main();
