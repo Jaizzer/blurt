@@ -9,7 +9,7 @@ module.exports = session({
 	saveUninitialized: false,
 	secret: process.env.SECRET,
 	cookie: {
-		// 1 dat
+		// 1 day
 		maxAge: 1000 * 60 * 60 * 24,
 	},
 });
