@@ -69,6 +69,12 @@ CREATE TABLE IF NOT EXISTS comment_likes (
     FOREIGN KEY (comment_id) REFERENCES comments(id)
 );
 `
+
+const query3 = `
+ALTER TABLE users
+DROP COLUMN salt;
+`;
+
 async function main() {
     let client;
     try {
@@ -95,7 +101,7 @@ async function main() {
 
         await client.connect();
 
-        await client.query(query2);
+        await client.query(query3);
 
         console.log(`Database setup complete.`);
     } catch (error) {
