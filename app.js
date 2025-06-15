@@ -12,6 +12,9 @@ const upload = multer({ storage: multer.memoryStorage() });
 // Load ejs layout
 const expressLayouts = require("express-ejs-layouts");
 
+// Load pre-configured session middleware
+const sessionMiddleware = require("./config/sessionMiddleware");
+
 // Setup the server
 const express = require("express");
 const app = express();
@@ -40,6 +43,9 @@ app.use(expressLayouts);
 // Setup views
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+
+// Apply session middleware to handle user sessions (e.g., login state, cookies)
+app.use(sessionMiddleware);
 
 // Root router
 const rootRouter = require("./routes/rootRouter");
