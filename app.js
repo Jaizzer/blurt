@@ -45,6 +45,10 @@ app.set("views", path.join(__dirname, "views"));
 const rootRouter = require("./routes/rootRouter");
 app.use("/", rootRouter);
 
+// Sign up router
+const signUpRouter = require("./routes/signUpRouter");
+app.use("/signUp", signUpRouter);
+
 // Main error-handling middleware
 app.use((err, req, res, next) => {
 	console.error(err.stack);
