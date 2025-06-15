@@ -1,4 +1,4 @@
-const pool = require("./pool.js");
+const pool = require("../config/pool.js");
 
 async function addUser(user) {
 	try {
