@@ -16,7 +16,7 @@ async function addUser(user) {
 	}
 }
 
-async function getUserById(id) {
+async function getById(id) {
 	try {
 		const { rows } = await pool.query(
 			`
@@ -33,7 +33,7 @@ async function getUserById(id) {
 	}
 }
 
-async function getUserByUsername(username) {
+async function getByUsername(username) {
 	try {
 		const { rows } = await pool.query(
 			`
@@ -50,7 +50,7 @@ async function getUserByUsername(username) {
 	}
 }
 
-async function getUserByEmail(email) {
+async function getByEmail(email) {
 	try {
 		const { rows } = await pool.query(
 			`
@@ -69,7 +69,7 @@ async function getUserByEmail(email) {
 
 module.exports = {
 	addUser,
-	getUserById,
-	getUserByUsername,
-	getUserByEmail,
+	getById,
+	getByUsername,
+	getByEmail,
 };
