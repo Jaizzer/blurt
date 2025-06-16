@@ -51,9 +51,10 @@ app.use(sessionMiddleware);
 const rootRouter = require("./routes/rootRouter");
 app.use("/", rootRouter);
 
-// Sign up router
-const signUpRouter = require("./routes/signUpRouter");
-app.use("/signUp", signUpRouter);
+// Authentication router
+const authRouter = require("./routes/authRouter");
+app.use("/auth", authRouter);
+
 
 // Main error-handling middleware
 app.use((err, req, res, next) => {

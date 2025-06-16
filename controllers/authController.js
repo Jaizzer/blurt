@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
-const db = require("../models/signUpModel.js");
+const db = require("../models/userModel.js");
 
 async function signUpPost(req, res, next) {
 	const isThereInputErrors = !validationResult(req).isEmpty();
