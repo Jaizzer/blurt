@@ -58,6 +58,12 @@ async function signUpGet(req, res, next) {
 	});
 }
 
+async function signInGet(req, res, next) {
+	res.render("signIn", {
+		inputFields: null,
+	});
+}
+
 const validateSignUpForm = [
 	body("email")
 		.trim()
@@ -85,4 +91,5 @@ const validateSignUpForm = [
 module.exports = {
 	signUpGet: asyncHandler(signUpGet),
 	signUpPost: [validateSignUpForm, asyncHandler(signUpPost)],
+	signInGet: asyncHandler(signInGet),
 };
