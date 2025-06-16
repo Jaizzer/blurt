@@ -1,6 +1,6 @@
 const pool = require("../config/pool.js");
 
-async function addUser(user) {
+async function add(user) {
 	try {
 		const { username, email, passwordHash } = user;
 		await pool.query(
@@ -68,7 +68,7 @@ async function getByEmail(email) {
 }
 
 module.exports = {
-	addUser,
+	add,
 	getById,
 	getByUsername,
 	getByEmail,

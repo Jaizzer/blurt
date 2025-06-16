@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
-const db = require("../models/userModel.js");
+const User = require("../models/userModel.js");
 
 async function signUpPost(req, res, next) {
 	const isThereInputErrors = !validationResult(req).isEmpty();
@@ -15,7 +15,7 @@ async function signUpPost(req, res, next) {
 		const passwordHash = await bcrypt.hash(req.body.password, 12);
 
 		// Add the new user
-		await db.addUser({
+		await User.add({
 			email: req.body.email,
 			username: req.body.username,
 			passwordHash: passwordHash,
