@@ -47,7 +47,7 @@ async function signUpPost(req, res, next) {
 			passwordHash: passwordHash,
 		});
 
-        // Render sign up success messages
+		// Render sign up success messages
 		res.render("signUpSuccess");
 	}
 }
@@ -65,13 +65,6 @@ const validateSignUpForm = [
 		.withMessage("Please provide an email.")
 		.isEmail()
 		.withMessage("Please provide a valid email."),
-
-	body("username")
-		.trim()
-		.notEmpty()
-		.withMessage("Please provide a username")
-		.isAlphanumeric()
-		.withMessage("Please provide alphanumeric username."),
 
 	body("username")
 		.trim()
