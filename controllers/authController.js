@@ -34,7 +34,7 @@ async function signUpGet(req, res, next) {
 
 async function signInGet(req, res, next) {
 	res.render("signIn", {
-		inputFields: null,
+		formFieldData: null,
 	});
 }
 

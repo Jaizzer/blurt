@@ -4,16 +4,16 @@
 	<form action="/auth/signIn" method="POST" class="signInForm">
 		<div class="inputField">
 			<label for="email">Email</label>
-			<input type="email" placeholder="Email address" name="email" id="email" value="<%= inputFields?.email?.value %>" required />
-			<% if (inputFields?.email?.error) {%>
-			<p class="errorMessage"><%= inputFields?.email?.error %></p>
+			<input type="email" placeholder="Email address" name="email" id="email" value="<%= formFieldData?.email?.value %>" required />
+			<% if (formFieldData?.email?.error) {%>
+			<p class="errorMessage"><%= formFieldData?.email?.error %></p>
 			<% } %>
 		</div>
 		<div class="inputField">
 			<label for="password">Password</label>
-			<input type="password" placeholder="Password" name="password" id="password" value="<%= inputFields?.password?.value %>" min="12" required />
-			<% if (inputFields?.password?.error) {%>
-			<p class="errorMessage"><%= inputFields?.password?.error %></p>
+			<input type="password" placeholder="Password" name="password" id="password" value="<%= formFieldData?.password?.value %>" min="12" required />
+			<% if (formFieldData?.password?.error) {%>
+			<p class="errorMessage"><%= formFieldData?.password?.error %></p>
 			<% } %>
 		</div>
 		<button type="submit">Sign In</button>
