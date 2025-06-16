@@ -52,4 +52,6 @@ async function getUserByUsername(username) {
 
 module.exports = {
 	addUser,
+	getUserById,
+	getUserByUsername,
 };
