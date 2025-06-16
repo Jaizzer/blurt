@@ -1,17 +1,17 @@
 <section class="signInSection">
 	<h1>Sign In</h1>
 
-	<form action="/signIn" method="POST" class="signInForm">
+	<form action="/auth/signIn" method="POST" class="signInForm">
 		<div class="inputField">
 			<label for="email">Email</label>
-			<input type="email" placeholder="Email address" name="email" id="email" value="<%= inputFields?.email?.value %>" required />
+			<input type="email" placeholder="Email address" name="email" id="email" value="<%= inputFields?.email?.value %>" />
 			<% if (inputFields?.email?.error) {%>
 			<p class="errorMessage"><%= inputFields?.email?.error %></p>
 			<% } %>
 		</div>
 		<div class="inputField">
 			<label for="password">Password</label>
-			<input type="password" placeholder="Password" name="password" id="password" value="<%= inputFields?.password?.value %>" min="12" required />
+			<input type="password" placeholder="Password" name="password" id="password" value="<%= inputFields?.password?.value %>" min="12" />
 			<% if (inputFields?.password?.error) {%>
 			<p class="errorMessage"><%= inputFields?.password?.error %></p>
 			<% } %>
