@@ -50,8 +50,26 @@ async function getUserByUsername(username) {
 	}
 }
 
+async function getUserByEmail(email) {
+	try {
+		const { rows } = await pool.query(
+			`
+            SELECT *
+            FROM users
+            WHERE email = $1;
+            `,
+			[email]
+		);
+		const user = rows[0];
+		return user;
+	} catch (error) {
+		console.error("Error retrieving user. ", error.replace("Error:", ""));
+	}
+}
+
 module.exports = {
 	addUser,
 	getUserById,
 	getUserByUsername,
+	getUserByEmail,
 };
