@@ -5,30 +5,30 @@
 	<form action="/auth/signUp" method="POST" class="signUpForm">
 		<div class="inputField">
 			<label for="email">Email</label>
-			<input type="email" placeholder="Email address" name="email" id="email" value="<%= inputFields?.email?.value %>" required />
-			<% if (inputFields?.email?.error) {%>
-			<p class="errorMessage"><%= inputFields?.email?.error %></p>
+			<input type="email" placeholder="Email address" name="email" id="email" value="<%= formFieldData?.email?.value %>" required />
+			<% if (formFieldData?.email?.error) {%>
+			<p class="errorMessage"><%= formFieldData?.email?.error %></p>
 			<% } %>
 		</div>
 		<div class="inputField">
 			<label for="username">Username</label>
-			<input type="text" placeholder="Username" name="username" id="username" value="<%= inputFields?.username?.value %>" max="26" required />
-			<% if (inputFields?.username?.error) {%>
-			<p class="errorMessage"><%= inputFields?.username?.error %></p>
+			<input type="text" placeholder="Username" name="username" id="username" value="<%= formFieldData?.username?.value %>" max="26" required />
+			<% if (formFieldData?.username?.error) {%>
+			<p class="errorMessage"><%= formFieldData?.username?.error %></p>
 			<% } %>
 		</div>
 		<div class="inputField">
 			<label for="password">Password</label>
-			<input type="password" placeholder="Password" name="password" id="password" value="<%= inputFields?.password?.value %>" min="12" required />
-			<% if (inputFields?.password?.error) {%>
-			<p class="errorMessage"><%= inputFields?.password?.error %></p>
+			<input type="password" placeholder="Password" name="password" id="password" value="<%= formFieldData?.password?.value %>" min="12" required />
+			<% if (formFieldData?.password?.error) {%>
+			<p class="errorMessage"><%= formFieldData?.password?.error %></p>
 			<% } %>
 		</div>
 		<div class="inputField">
 			<label for="confirmPassword">Confirm Password</label>
-			<input type="password" placeholder="Confirm Password" name="confirmPassword" id="confirmPassword" value="<%= inputFields?.confirmPassword?.value %>" required />
-			<% if (inputFields?.confirmPassword?.error) {%>
-			<p class="errorMessage"><%= inputFields?.confirmPassword?.error %></p>
+			<input type="password" placeholder="Confirm Password" name="confirmPassword" id="confirmPassword" value="<%= formFieldData?.confirmPassword?.value %>" required />
+			<% if (formFieldData?.confirmPassword?.error) {%>
+			<p class="errorMessage"><%= formFieldData?.confirmPassword?.error %></p>
 			<% } %>
 		</div>
 		<button type="submit">Create Account</button>

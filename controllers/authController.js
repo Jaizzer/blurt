@@ -6,35 +6,9 @@ const db = require("../models/userModel.js");
 async function signUpPost(req, res, next) {
 	const isThereInputErrors = !validationResult(req).isEmpty();
 	if (isThereInputErrors) {
-		// Get the input errors
-		const inputErrors = validationResult(req).mapped();
-
-		// Create an object that contains each input field's error and value.
-		const inputFields = {};
-		const inputFieldNames = Object.keys(req.body);
-		inputFieldNames.forEach((inputFieldName) => {
-			const value = inputErrors[inputFieldName]
-				? inputErrors[inputFieldName].value
-				: req.body[inputFieldName];
-
-			const error = inputErrors[inputFieldName]
-				? inputErrors[inputFieldName].msg
-				: null;
-
-			Object.defineProperty(inputFields, inputFieldName, {
-				value: {
-					value,
-					error,
-				},
-				writable: true,
-				enumerable: true,
-				configurable: true,
-			});
-		});
-
 		// Rerender the sign up form with error messages
 		res.render("signUp", {
-			inputFields,
+			formFieldData: getFormFieldData(req),
 		});
 	} else {
 		// Hash the password
@@ -54,7 +28,7 @@ async function signUpPost(req, res, next) {
 
 async function signUpGet(req, res, next) {
 	res.render("signUp", {
-		inputFields: null,
+		formFieldData: null,
 	});
 }
 
