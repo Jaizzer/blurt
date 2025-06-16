@@ -16,6 +16,23 @@ async function addUser(user) {
 	}
 }
 
+async function getUserById(id) {
+	try {
+		const { rows } = await pool.query(
+			`
+            SELECT *
+            FROM users
+            WHERE id = $1;
+            `,
+			[id]
+		);
+		const user = rows[0];
+		return user;
+	} catch (error) {
+		console.error("Error retrieving user. ", error.replace("Error:", ""));
+	}
+}
+
 module.exports = {
 	addUser,
 };
