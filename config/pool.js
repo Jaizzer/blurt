@@ -15,6 +15,8 @@ try {
         );
     }
 
+    console.log(connectionString);
+
     pool = new Pool({
         connectionString: connectionString,
         ssl:
