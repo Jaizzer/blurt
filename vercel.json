@@ -1,12 +1,12 @@
 {
 	"version": 2,
 	"builds": [
-        { 
-            "src": "app.js", 
-            "use": "@vercel/node" 
-        }
-    ],
-    "buildCommand": "node --watch app.js PRODUCTION",
+		{
+			"src": "app.js",
+			"use": "@vercel/node"
+		}
+	],
+	"buildCommand": "node --watch app.js PRODUCTION",
 	"routes": [
 		{
 			"src": "/(.*)",
