@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel.js");
+const passport = require("passport");
 const getFormFieldData = require("../utils/getFormFieldData.js");
 
 async function signUpPost(req, res, next) {
@@ -39,9 +40,31 @@ async function signInGet(req, res, next) {
 	});
 }
 
+async function signInPost(req, res, next) {
+	passport.authenticate("local", (error, user, info) => {
+		if (error) {
+			return next(error);
+		}
 
+		if (!user) {
+			// Make the user input persist even after redirecting to signIn page
+			req.flash("email", req.body.email);
+			req.flash("password", req.body.password);
 
+			// Attach the error message to be displayed on the signIn page
+			req.flash("error", info.message);
 
+			return res.redirect("/auth/signIn");
+		} else {
+			req.logIn(user, function (error) {
+				if (error) {
+					return next(error);
+				} else {
+					return res.redirect("/");
+				}
+			});
+		}
+	})(req, res, next);
 }
 
 const validateSignUpForm = [
@@ -72,4 +95,5 @@ module.exports = {
 	signUpGet: asyncHandler(signUpGet),
 	signUpPost: [validateSignUpForm, asyncHandler(signUpPost)],
 	signInGet: asyncHandler(signInGet),
+	signInPost: asyncHandler(signInPost),
 };
