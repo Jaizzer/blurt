@@ -12,7 +12,7 @@ async function add(user) {
 			[username, email, passwordHash]
 		);
 	} catch (error) {
-		console.error("Error inserting user. ", error.replace("Error:", ""));
+		console.error("Error inserting user. ", error.message);
 	}
 }
 
@@ -29,7 +29,7 @@ async function getById(id) {
 		const user = rows[0];
 		return user;
 	} catch (error) {
-		console.error("Error retrieving user. ", error.replace("Error:", ""));
+		console.error("Error retrieving user. ", error.message);
 	}
 }
 
@@ -46,7 +46,7 @@ async function getByUsername(username) {
 		const user = rows[0];
 		return user;
 	} catch (error) {
-		console.error("Error retrieving user. ", error.replace("Error:", ""));
+		console.error("Error retrieving user. ", error.message);
 	}
 }
 
@@ -63,7 +63,7 @@ async function getByEmail(email) {
 		const user = rows[0];
 		return user;
 	} catch (error) {
-		console.error("Error retrieving user. ", error.replace("Error:", ""));
+		console.error("Error retrieving user. ", error.message);
 	}
 }
 
