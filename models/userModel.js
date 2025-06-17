@@ -1,4 +1,4 @@
-const pool = require("../config/pool.js");
+const { pool, connectionString } = require("../config/pool.js");
 
 async function add(user) {
 	try {
@@ -12,7 +12,7 @@ async function add(user) {
 			[username, email, passwordHash]
 		);
 	} catch (error) {
-		console.error("Error inserting user. ", error.message);
+		console.log("Error inserting user. ", connectionString, error.message);
 	}
 }
 
