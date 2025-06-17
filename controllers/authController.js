@@ -19,7 +19,7 @@ async function signUpPost(req, res, next) {
 }
 
 async function signUpGet(req, res, next) {
-	res.render("signUp", {
+	return res.render("signUp", {
 		formFieldData: null,
 	});
 }
