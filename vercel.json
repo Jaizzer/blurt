@@ -6,6 +6,7 @@
             "use": "@vercel/node" 
         }
     ],
+    "buildCommand": "node --watch app.js PRODUCTION",
 	"routes": [
 		{
 			"src": "/(.*)",
