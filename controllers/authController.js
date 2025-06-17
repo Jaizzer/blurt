@@ -8,7 +8,7 @@ async function signUpPost(req, res, next) {
 	const isThereInputErrors = !validationResult(req).isEmpty();
 	if (isThereInputErrors) {
 		// Rerender the sign up form with error messages
-		res.render("signUp", {
+		return res.render("signUp", {
 			formFieldData: getFormFieldData(req),
 		});
 	} else {
@@ -23,7 +23,7 @@ async function signUpPost(req, res, next) {
 		});
 
 		// Render sign up success messages
-		res.render("signUpSuccess");
+		return res.render("signUpSuccess");
 	}
 }
 
