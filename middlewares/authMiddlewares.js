@@ -6,7 +6,10 @@ async function validateSignInForm(req, res, next) {
 	if (isThereError) {
 		// Render errors in the form
 		return res.render("signIn", {
-			formFieldData: getFormFieldData(req),
+			formFieldData: getFormFieldData({
+				inputValues: req.body,
+				inputErrors: validationResult(req).mapped(),
+			}),
 		});
 	} else {
 		return next();
@@ -18,7 +21,10 @@ async function validateSignUpForm(req, res, next) {
 	if (isThereInputErrors) {
 		// Rerender the sign up form with error messages
 		return res.render("signUp", {
-			formFieldData: getFormFieldData(req),
+			formFieldData: getFormFieldData({
+				inputValues: req.body,
+				inputErrors: validationResult(req).mapped(),
+			}),
 		});
 	} else {
 		return next();

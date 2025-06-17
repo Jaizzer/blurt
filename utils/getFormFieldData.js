@@ -1,12 +1,7 @@
-const { validationResult } = require("express-validator");
-
-function getFormFieldData(req) {
-	// Get the input errors
-	const inputErrors = validationResult(req).mapped();
-
+function getFormFieldData({inputValues, inputErrors}) {
 	// Create an object that contains each input field's error and value.
 	const formFieldData = {};
-	const inputFieldNames = Object.keys(req.body);
+	const inputFieldNames = Object.keys(inputValues);
 	inputFieldNames.forEach((inputFieldName) => {
 		const value = inputErrors[inputFieldName]
 			? inputErrors[inputFieldName].value
