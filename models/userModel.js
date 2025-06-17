@@ -12,7 +12,7 @@ async function add(user) {
 			[username, email, passwordHash]
 		);
 	} catch (error) {
-		console.error("Error inserting user. ", pool, error);
+		console.error("Error inserting user. ", error.message);
 	}
 }
 
