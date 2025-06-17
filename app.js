@@ -13,7 +13,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const expressLayouts = require("express-ejs-layouts");
 
 // Load pre-configured session middleware
-const sessionMiddleware = require("./config/sessionMiddleware");
+const sessionMiddleware = require("./config/session.js");
 
 // Setup the server
 const express = require("express");
