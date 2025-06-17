@@ -35,8 +35,23 @@ async function signUpGet(req, res, next) {
 }
 
 async function signInGet(req, res, next) {
-	res.render("signIn", {
-		formFieldData: null,
+	// Get the attached error message to the request after a failed sign in attempt
+	const failedSignInErrorMessage = req.flash("error")[0];
+	return res.render("signIn", {
+		formFieldData: {
+			email: {
+				value: req.flash("email"),
+				error: failedSignInErrorMessage?.includes("email")
+					? failedSignInErrorMessage
+					: null,
+			},
+			password: {
+				value: req.flash("password"),
+				error: failedSignInErrorMessage?.includes("password")
+					? failedSignInErrorMessage
+					: null,
+			},
+		},
 	});
 }
 
