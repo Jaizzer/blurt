@@ -1,3 +1,5 @@
+const { validationResult } = require("express-validator");
+
 function getFormFieldData(req) {
 	// Get the input errors
 	const inputErrors = validationResult(req).mapped();
