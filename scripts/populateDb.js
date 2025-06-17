@@ -98,6 +98,12 @@ const query6 = `
     CREATE INDEX "IDX_session_expire" ON "session" ("expire");
 `;
 
+const query7 = `
+    ALTER TABLE users
+    ADD COLUMN email_verification_string TEXT ,
+    ADD COLUMN is_valid BOOLEAN DEFAULT FALSE;
+`;
+
 async function main() {
 	let client;
 	try {
@@ -124,7 +130,7 @@ async function main() {
 
 		await client.connect();
 
-		await client.query(query6);
+		await client.query(query7);
 
 		console.log(`Database setup complete.`);
 	} catch (error) {
