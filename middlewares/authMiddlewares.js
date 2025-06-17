@@ -13,4 +13,16 @@ async function validateSignInForm(req, res, next) {
 	}
 }
 
-module.exports = { validateSignInForm };
+async function validateSignUpForm(req, res, next) {
+	const isThereInputErrors = !validationResult(req).isEmpty();
+	if (isThereInputErrors) {
+		// Rerender the sign up form with error messages
+		return res.render("signUp", {
+			formFieldData: getFormFieldData(req),
+		});
+	} else {
+		return next();
+	}
+}
+
+module.exports = { validateSignInForm, validateSignUpForm };
