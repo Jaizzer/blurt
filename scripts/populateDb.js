@@ -102,7 +102,7 @@ async function main() {
 	let client;
 	try {
 		const connectionString =
-			process.argv[2] === "PRODUCTION"
+			process.env.NODE_ENVIRONMENT === "PRODUCTION"
 				? process.env.PRODUCTION_DB_URL
 				: process.env.LOCAL_DB_URL;
 
@@ -115,7 +115,7 @@ async function main() {
 		client = new Client({
 			connectionString: connectionString,
 			ssl:
-				process.argv[2] === "PRODUCTION"
+				process.env.NODE_ENVIRONMENT === "PRODUCTION"
 					? {
 							rejectUnauthorized: false,
 					  }

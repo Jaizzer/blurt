@@ -24,7 +24,7 @@ app.listen(PORT, (error) => {
 		console.error(`Failed to start server: ${error}`);
 	} else {
 		const baseUrl =
-			process.argv[2] === "PRODUCTION"
+			process.env.NODE_ENVIRONMENT === "PRODUCTION"
 				? process.env.PRODUCTION_URL
 				: `http://localhost:${PORT}`;
 		console.log(`Server is listening on: ${baseUrl}`);

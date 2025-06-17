@@ -5,7 +5,7 @@ require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 let pool;
 try {
 	connectionString =
-		process.argv[2] === "PRODUCTION"
+		process.env.NODE_ENVIRONMENT === "PRODUCTION"
 			? process.env.PRODUCTION_DB_URL
 			: process.env.LOCAL_DB_URL;
 
@@ -18,7 +18,7 @@ try {
 	pool = new Pool({
 		connectionString: connectionString,
 		ssl:
-			process.argv[2] === "PRODUCTION"
+			process.env.NODE_ENVIRONMENT === "PRODUCTION"
 				? {
 						rejectUnauthorized: false,
 				  }
