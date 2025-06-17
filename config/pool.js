@@ -2,8 +2,6 @@ const { Pool } = require("pg");
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
-let connectionString;
-let env = process.argv[2];
 let pool;
 try {
 	connectionString =
@@ -32,4 +30,4 @@ try {
 	process.exit(1);
 }
 
-module.exports = { pool, connectionString, env };
+module.exports = pool;
