@@ -31,6 +31,9 @@ app.listen(PORT, (error) => {
 	}
 });
 
+// Load passport for user authentication
+const passport = require("passport");
+
 // Encode data into key-value pairs
 app.use(express.urlencoded({ extended: true }));
 
@@ -46,6 +49,13 @@ app.set("views", path.join(__dirname, "views"));
 
 // Apply session middleware to handle user sessions (e.g., login state, cookies)
 app.use(sessionMiddleware);
+
+// Load and configure the Passport strategies
+require("./config/passport.js");
+
+// Initialize Passport and enable session-based authentication
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Root router
 const rootRouter = require("./routes/rootRouter");
