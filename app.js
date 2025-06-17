@@ -34,6 +34,10 @@ app.listen(PORT, (error) => {
 // Load passport for user authentication
 const passport = require("passport");
 
+// Load connect-flash to store messages for page redirects
+const flash = require("connect-flash");
+app.use(flash());
+
 // Encode data into key-value pairs
 app.use(express.urlencoded({ extended: true }));
 
