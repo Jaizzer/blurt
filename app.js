@@ -61,6 +61,12 @@ require("./config/passport.js");
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Make the user data available in every views
+app.use((req, res, next) => {
+	res.locals.user = req.user;
+	return next();
+});
+
 // Root router
 const rootRouter = require("./routes/rootRouter");
 app.use("/", rootRouter);
@@ -68,7 +74,6 @@ app.use("/", rootRouter);
 // Authentication router
 const authRouter = require("./routes/authRouter");
 app.use("/auth", authRouter);
-
 
 // Main error-handling middleware
 app.use((err, req, res, next) => {
