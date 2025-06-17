@@ -31,4 +31,13 @@ async function validateSignUpForm(req, res, next) {
 	}
 }
 
-module.exports = { validateSignInForm, validateSignUpForm };
+async function isAuthenticated(req, res, next) {
+	if (req.isAuthenticated()) {
+		return next();
+	} else {
+		// Redirect the user to the sign in page if he/she is not yet authenticated
+		return res.redirect("/auth/signIn");
+	}
+}
+
+module.exports = { validateSignInForm, validateSignUpForm, isAuthenticated };
