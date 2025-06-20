@@ -104,6 +104,11 @@ const query7 = `
     ADD COLUMN is_valid BOOLEAN DEFAULT FALSE;
 `;
 
+const query8 = `
+    ALTER TABLE users
+    DROP CONSTRAINT email_verification_string;
+`
+
 async function main() {
 	let client;
 	try {
@@ -130,7 +135,7 @@ async function main() {
 
 		await client.connect();
 
-		await client.query(query7);
+		await client.query(query8);
 
 		console.log(`Database setup complete.`);
 	} catch (error) {
