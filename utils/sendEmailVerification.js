@@ -41,6 +41,8 @@ async function sendEmailVerification({
 			console.log("Message sent.");
 		}
 	});
+
+	Transport.close();
 }
 
 module.exports = sendEmailVerification;
