@@ -107,6 +107,12 @@ const query7 = `
 const query8 = `
     ALTER TABLE users
     DROP CONSTRAINT email_verification_string;
+`;
+
+const query9 = `
+    ALTER TABLE users
+    ALTER COLUMN username DROP NOT NULL,
+    ALTER COLUMN password_hash DROP NOT NULL;
 `
 
 async function main() {
@@ -135,7 +141,7 @@ async function main() {
 
 		await client.connect();
 
-		await client.query(query8);
+		await client.query(query9);
 
 		console.log(`Database setup complete.`);
 	} catch (error) {
