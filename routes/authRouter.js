@@ -8,5 +8,6 @@ authRouter.get("/signUp", authControllers.signUpGet);
 authRouter.post("/signUp", authValidators.signUp, authMiddlewares.validateSignUpForm, authControllers.signUpPost);
 authRouter.get("/signIn", authControllers.signInGet);
 authRouter.post("/signIn", authValidators.signIn, authMiddlewares.validateSignInForm, authControllers.signInPost);
+authRouter.get("/verify/:emailVerificationString", authControllers.verifyUser);
 
 module.exports = authRouter;

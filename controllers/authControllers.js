@@ -2,20 +2,54 @@ const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel.js");
 const passport = require("passport");
+const generateRandomString = require("../utils/generateRandomString.js");
+const sendEmailVerification = require("../utils/sendEmailVerification.js");
 
 async function signUpPost(req, res, next) {
 	// Hash the password
 	const passwordHash = await bcrypt.hash(req.body.password, 12);
+
+	// Generate email verification string
+	const emailVerificationString = generateRandomString();
 
 	// Add the new user
 	await User.add({
 		email: req.body.email,
 		username: req.body.username,
 		passwordHash: passwordHash,
+		emailVerificationString: emailVerificationString,
+		isValid: false,
+	});
+
+	await sendEmailVerification({
+		emailAddress: req.body.email,
+		emailVerificationString: emailVerificationString,
 	});
 
 	// Render sign up success messages
-	return res.render("signUpSuccess");
+	return res.render("emailVerification");
+}
+
+async function verifyUser(req, res, next) {
+	// Extract the email verification string
+	const { emailVerificationString } = req.params;
+
+	// Get the user that  matches the verification string
+	const user = await User.getByEmailVerificationString(
+		emailVerificationString
+	);
+
+	if (user) {
+		if (!user.is_valid) {
+			await User.validate(user.id);
+		}
+		return res.redirect("/auth/signIn");
+	} else {
+		return res.render("error", {
+			title: "Email Verification Failed",
+			message: "User to verify does not exist",
+		});
+	}
 }
 
 async function signUpGet(req, res, next) {
@@ -77,4 +111,5 @@ module.exports = {
 	signUpPost: asyncHandler(signUpPost),
 	signInGet: asyncHandler(signInGet),
 	signInPost: asyncHandler(signInPost),
+	verifyUser: asyncHandler(verifyUser),
 };
