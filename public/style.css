@@ -17,3 +17,117 @@
 		--accent: #524da8;
 	}
 }
+
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	background-color: var(--background);
+	color: var(--text);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
+
+.signUpSection {
+	background-color: var(--secondary);
+	padding: 2rem 2.5rem;
+	border-radius: 10px;
+	max-width: 480px;
+	width: 100%;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.signUpSection h1 {
+	font-size: 1.75rem;
+	margin-bottom: 0.25rem;
+	color: var(--text);
+}
+
+.signUpSection p {
+	margin-bottom: 1.5rem;
+	color: var(--text);
+}
+
+.signUpForm {
+	display: grid;
+	gap: 0.5em;
+}
+
+.inputField {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1rem;
+}
+
+.inputField {
+	display: grid;
+}
+.inputField label {
+	margin-bottom: 0.4rem;
+	font-weight: 500;
+	color: var(--text);
+}
+
+.inputField input {
+	padding: 0.6rem;
+	border-radius: 5px;
+	border: 1px solid var(--primary);
+	font-size: 1rem;
+	background-color: var(--background);
+	color: var(--text);
+}
+
+.inputField input:focus {
+	outline: none;
+	border-color: var(--accent);
+	background-color: var(--secondary);
+}
+
+.errorMessage {
+	margin-top: 0.3rem;
+	font-size: 0.9rem;
+	color: #e63946;
+}
+
+button[type="submit"] {
+	margin-top: 1rem;
+	width: 100%;
+	padding: 0.75rem;
+	background-color: var(--primary);
+	color: var(--text);
+	font-size: 1rem;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+button[type="submit"]:hover {
+	background-color: var(--accent);
+}
+
+a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 1rem;
+	text-decoration: none;
+	color: var(--text);
+	font-weight: 500;
+}
+
+a .iconContainer {
+	margin-right: 0.6rem;
+}
+
+.signUpPrompt {
+	text-align: center;
+	margin-top: 1.5rem;
+	font-size: 0.95rem;
+	color: var(--text);
+}
+
+.signUpPrompt a {
+	color: var(--primary);
+}
