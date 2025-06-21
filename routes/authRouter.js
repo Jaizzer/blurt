@@ -9,6 +9,8 @@ authRouter.post("/signUp", authValidators.signUp, authMiddlewares.validateSignUp
 authRouter.get("/signIn", authControllers.signInGet);
 authRouter.post("/signIn", authValidators.signIn, authMiddlewares.validateSignInForm, authControllers.signInPost);
 authRouter.get("/verify/:emailVerificationString", authControllers.verifyUser);
-authRouter.get("/signOut", authMiddlewares.isAuthenticated, authControllers.signOut)
+authRouter.get("/signOut", authMiddlewares.isAuthenticated, authControllers.signOut);
+authRouter.get("/google", authControllers.initializeSignInWithGoogle);
+authRouter.get("/google/callback", authControllers.signInWithGoogle );
 
 module.exports = authRouter;

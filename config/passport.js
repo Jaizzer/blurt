@@ -1,7 +1,10 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel.js");
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const customFields = {
 	// User email instead of the default username
@@ -19,7 +22,7 @@ const verifyCallback = async (email, password, done) => {
 
 		const isPasswordMatched = await bcrypt.compare(
 			password,
-			user.password_hash
+			user.password_hash || ""
 		);
 
 		if (!isPasswordMatched) {
@@ -35,6 +38,33 @@ const verifyCallback = async (email, password, done) => {
 const strategy = new LocalStrategy(customFields, verifyCallback);
 
 passport.use(strategy);
+
+passport.use(
+	new GoogleStrategy(
+		{
+			clientID: process.env.GOOGLE_CLIENT_ID,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+			callbackURL: "http://localhost:9000/auth/google/callback",
+			passReqToCallback: true,
+		},
+		async function (request, accessToken, refreshToken, profile, done) {
+			// Check if the user already exists in the database
+			let user = await User.getByEmail(profile.email);
+
+			if (!user) {
+				// Save the user to the database if it not yet exists
+				await User.add({
+					email: profile.email,
+					isValid: true,
+				});
+
+				// Retrieve the newly added user
+				user = await User.getByEmail(user);
+			}
+			return done(null, user);
+		}
+	)
+);
 
 passport.serializeUser((user, done) => {
 	done(null, user.id);
