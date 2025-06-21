@@ -31,7 +31,7 @@ async function sendEmailVerification({
 		html: `Press <a href="${verificationLink}"> Here </a> to verify your email. Thanks`,
 	};
 
-	Transport.sendMail(mailOptions, (error, response) => {
+	await Transport.sendMail(mailOptions, (error, response) => {
 		if (error) {
 			console.log("Error sending verification email.");
 			throw error;
