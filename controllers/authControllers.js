@@ -106,10 +106,21 @@ async function signInPost(req, res, next) {
 	})(req, res, next);
 }
 
+async function signOut(req, res, next) {
+	req.logout((error) => {
+		if (error) {
+			return next(error);
+		} else {
+			return res.redirect("/");
+		}
+	});
+}
+
 module.exports = {
 	signUpGet: asyncHandler(signUpGet),
 	signUpPost: asyncHandler(signUpPost),
 	signInGet: asyncHandler(signInGet),
 	signInPost: asyncHandler(signInPost),
 	verifyUser: asyncHandler(verifyUser),
+	signOut: asyncHandler(signOut),
 };
