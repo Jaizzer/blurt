@@ -1,0 +1,14 @@
+<section class="pickUsernameSection">
+	<form action="/pickUsername" method="POST" class="pickUsernameForm">
+		<h1>Pick a username</h1>
+		<p>Your username is how people can discover you</p>
+		<div class="inputField">
+			<label for="username">Username</label>
+			<input placeholder="Username" name="username" id="username" value="<%= formFieldData?.username?.value %>" required />
+			<% if (formFieldData?.username?.error) {%>
+			<p class="errorMessage"><%= formFieldData?.username?.error %></p>
+			<% } %>
+		</div>
+		<button type="submit">Save Username</button>
+	</form>
+</section>

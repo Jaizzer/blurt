@@ -111,6 +111,23 @@ async function getByEmail(email) {
 	}
 }
 
+async function updateUsername({ username, id }) {
+	try {
+		await pool.query(
+			`
+            UPDATE users
+            SET username = $1
+            WHERE id = $2;
+        `,
+			[username, id]
+		);
+		console.log("Username updated successfully.");
+	} catch (error) {
+		console.error("Error updating username.");
+		throw error;
+	}
+}
+
 module.exports = {
 	add,
 	getById,
@@ -118,4 +135,5 @@ module.exports = {
 	getByEmail,
 	getByEmailVerificationString,
 	validate,
+	updateUsername,
 };
