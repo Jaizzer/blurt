@@ -64,9 +64,9 @@ async function signInGet(req, res, next) {
 	const failedSignInErrorMessage = req.flash("error")[0];
 	return res.render("signIn", {
 		formFieldData: {
-			email: {
-				value: req.flash("email"),
-				error: failedSignInErrorMessage?.includes("email")
+			emailOrUsername: {
+				value: req.flash("emailOrUsername"),
+				error: failedSignInErrorMessage?.includes("email", "username")
 					? failedSignInErrorMessage
 					: null,
 			},
@@ -88,7 +88,7 @@ async function signInPost(req, res, next) {
 
 		if (!user) {
 			// Make the user input persist even after redirecting to signIn page
-			req.flash("email", req.body.email);
+			req.flash("emailOrUsername", req.body.emailOrUsername);
 			req.flash("password", req.body.password);
 
 			// Attach the error message to be displayed on the signIn page

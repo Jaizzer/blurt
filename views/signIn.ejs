@@ -3,10 +3,10 @@
 
 	<form action="/auth/signIn" method="POST" class="signInForm">
 		<div class="inputField">
-			<label for="email">Email</label>
-			<input type="email" placeholder="Email address" name="email" id="email" value="<%= formFieldData?.email?.value %>" required />
-			<% if (formFieldData?.email?.error) {%>
-			<p class="errorMessage"><%= formFieldData?.email?.error %></p>
+			<label for="email">Email or Username</label>
+			<input text="email" placeholder="Email or Username" name="emailOrUsername" id="emailOrUsername" value="<%= formFieldData?.emailOrUsername?.value %>" required />
+			<% if (formFieldData?.emailOrUsername?.error) {%>
+			<p class="errorMessage"><%= formFieldData?.emailOrUsername?.error %></p>
 			<% } %>
 		</div>
 		<div class="inputField">

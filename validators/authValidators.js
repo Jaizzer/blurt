@@ -40,12 +40,10 @@ const signUp = [
 ];
 
 const signIn = [
-	body("email")
+	body("emailOrUsername")
 		.trim()
 		.notEmpty()
-		.withMessage("Please provide an email.")
-		.isEmail()
-		.withMessage("Please provide a valid email."),
+		.withMessage("Please provide an email or a username."),
 
 	body("password").trim().notEmpty().withMessage("Please provide a password"),
 ];

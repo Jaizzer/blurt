@@ -10,15 +10,15 @@ passport.use(
 	new LocalStrategy(
 		{
 			// User email instead of the default username
-			usernameField: "email",
+			usernameField: "emailOrUsername",
 			passwordField: "password",
 		},
-		async function (email, password, done) {
+		async function (emailOrUsername, password, done) {
 			try {
-				const user = await User.getByEmail(email);
+				const user = await User.getByEmail(emailOrUsername) || await User.getByUsername(emailOrUsername);
 
 				if (!user) {
-					return done(null, false, { message: "Incorrect email" });
+					return done(null, false, { message: "Incorrect email or username." });
 				}
 
 				const isPasswordMatched = await bcrypt.compare(
