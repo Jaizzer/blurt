@@ -80,10 +80,10 @@ const authRouter = require("./routes/authRouter");
 app.use("/auth", authRouter);
 
 // Main error-handling middleware
-app.use((err, req, res, next) => {
-	console.error(err.stack);
-	const statusCode = err.statusCode || err.status || 500;
-	const message = err.message || "Internal server error";
+app.use((error, req, res, next) => {
+	console.error(error.stack);
+	const statusCode = error.statusCode || error.status || 500;
+	const message = error.message || "Internal server error";
 	console.log(message);
 	res.status(statusCode).render("error", {
 		title: "404 Error",
