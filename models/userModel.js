@@ -1,21 +1,21 @@
 const pool = require("../config/pool.js");
 
-async function add(user) {
+async function add({
+	username,
+	email,
+	passwordHash,
+	emailVerificationString,
+	isValid,
+	strategy,
+}) {
 	try {
-		const {
-			username,
-			email,
-			passwordHash,
-			emailVerificationString,
-			isValid,
-		} = user;
 		await pool.query(
 			`
             INSERT INTO users
-            (username, email, password_hash, email_verification_string, is_valid)
-            VALUES ($1, $2, $3, $4, $5);
+            (username, email, password_hash, email_verification_string, is_valid, strategy)
+            VALUES ($1, $2, $3, $4, $5, $6);
         `,
-			[username, email, passwordHash, emailVerificationString, isValid]
+			[username, email, passwordHash, emailVerificationString, isValid, strategy]
 		);
 	} catch (error) {
 		console.error("Error inserting user.");

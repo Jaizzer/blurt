@@ -59,6 +59,7 @@ passport.use(
 				await User.add({
 					email: profile.email,
 					isValid: true,
+					strategy: "google",
 				});
 
 				// Retrieve the newly added user

@@ -19,6 +19,7 @@ async function signUpPost(req, res, next) {
 		passwordHash: passwordHash,
 		emailVerificationString: emailVerificationString,
 		isValid: false,
+        strategy: 'local'
 	});
 
 	await sendEmailVerification({
