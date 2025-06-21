@@ -63,7 +63,7 @@ passport.use(
 				});
 
 				// Retrieve the newly added user
-				user = await User.getByEmail(user);
+				user = await User.getByEmail(profile.email);
 			}
 			return done(null, user);
 		}
