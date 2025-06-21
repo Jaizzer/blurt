@@ -127,6 +127,7 @@ async function signInWithGoogle(req, res, next) {
 	passport.authenticate("google", (error, user, info) => {
 		if (error || !user) {
 			if (error) console.error(error);
+			console.log(user);
 			return res.render("error", {
 				title: "Google Sign-In Failed",
 				message:
