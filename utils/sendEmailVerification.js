@@ -31,16 +31,15 @@ async function sendEmailVerification({
 		html: `Press <a href="${verificationLink}"> Here </a> to verify your email. Thanks`,
 	};
 
-	await Transport.sendMail(mailOptions, (error, response) => {
-		if (error) {
-			console.log("Error sending verification email.");
-			throw error;
-		} else {
-			console.log("Message sent.");
-		}
-	});
-
-	Transport.close();
+	try {
+		await Transport.sendMail(mailOptions);
+		console.log("Email sent");
+	} catch (error) {
+		console.error("Error sending email.");
+		throw err;
+	} finally {
+		Transport.close();
+	}
 }
 
 module.exports = sendEmailVerification;
