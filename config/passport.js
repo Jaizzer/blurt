@@ -6,38 +6,37 @@ const User = require("../models/userModel.js");
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
-const customFields = {
-	// User email instead of the default username
-	usernameField: "email",
-	passwordField: "password",
-};
+passport.use(
+	new LocalStrategy(
+		{
+			// User email instead of the default username
+			usernameField: "email",
+			passwordField: "password",
+		},
+		async function (email, password, done) {
+			try {
+				const user = await User.getByEmail(email);
 
-const verifyCallback = async (email, password, done) => {
-	try {
-		const user = await User.getByEmail(email);
+				if (!user) {
+					return done(null, false, { message: "Incorrect email" });
+				}
 
-		if (!user) {
-			return done(null, false, { message: "Incorrect email" });
+				const isPasswordMatched = await bcrypt.compare(
+					password,
+					user.password_hash || ""
+				);
+
+				if (!isPasswordMatched) {
+					return done(null, false, { message: "Incorrect password" });
+				}
+
+				return done(null, user);
+			} catch (error) {
+				return done(error);
+			}
 		}
-
-		const isPasswordMatched = await bcrypt.compare(
-			password,
-			user.password_hash || ""
-		);
-
-		if (!isPasswordMatched) {
-			return done(null, false, { message: "Incorrect password" });
-		}
-
-		return done(null, user);
-	} catch (error) {
-		return done(error);
-	}
-};
-
-const strategy = new LocalStrategy(customFields, verifyCallback);
-
-passport.use(strategy);
+	)
+);
 
 passport.use(
 	new GoogleStrategy(
