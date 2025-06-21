@@ -7,9 +7,7 @@ async function sendEmailVerification({
 	emailVerificationString,
 }) {
 	const Transport = nodemailer.createTransport({
-		service: "gmail",
-		host: "smtp.gmail.com",
-		port: 465,
+		service: "Gmail",
 		auth: {
 			user: process.env.EMAIL_ADDRESS,
 			pass: process.env.EMAIL_APP_PASSWORD,
