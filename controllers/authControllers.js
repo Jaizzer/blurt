@@ -19,7 +19,7 @@ async function signUpPost(req, res, next) {
 		passwordHash: passwordHash,
 		emailVerificationString: emailVerificationString,
 		isValid: false,
-        strategy: 'local'
+		strategy: "local",
 	});
 
 	await sendEmailVerification({
@@ -129,8 +129,9 @@ async function signInWithGoogle(req, res, next) {
 		if (error || !user) {
 			return res.render("error", {
 				title: "Google Sign-In Failed",
-				message:
-					"We couldn't log you in with Google. Please try again or use a different sign-in method.",
+				message: error
+					? error.message
+					: "We couldn't log you in with Google. Please try again or use a different sign-in method.",
 			});
 		} else {
 			req.logIn(user, function (error) {

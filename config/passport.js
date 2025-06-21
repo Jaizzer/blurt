@@ -54,6 +54,15 @@ passport.use(
 			// Check if the user already exists in the database
 			let user = await User.getByEmail(profile.email);
 
+			// Check if the gmail is already linked ot another account
+			if (user && user.strategy !== "google") {
+				return done(
+					new Error(
+						"This email account is already linked to another account."
+					)
+				);
+			}
+
 			if (!user) {
 				// Save the user to the database if it not yet exists
 				await User.add({
