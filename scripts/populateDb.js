@@ -115,6 +115,11 @@ const query9 = `
     ALTER COLUMN password_hash DROP NOT NULL;
 `
 
+const query10 = `
+    ALTER TABLE users
+    ADD COLUMN strategy TEXT NOT NULL;
+`
+
 async function main() {
 	let client;
 	try {
@@ -141,7 +146,7 @@ async function main() {
 
 		await client.connect();
 
-		await client.query(query9);
+		await client.query(query10);
 
 		console.log(`Database setup complete.`);
 	} catch (error) {
