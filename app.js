@@ -58,8 +58,12 @@ app.use(sessionMiddleware);
 require("./config/passport.js");
 
 // Initialize Passport and enable session-based authentication
-app.use(passport.initialize());
-app.use(passport.session());
+app.use((req, res, next) => {
+	passport.initialize()(req, res, next);
+});
+app.use((req, res, next) => {
+	passport.session()(req, res, next);
+});
 
 // Make the user data available in every views
 app.use((req, res, next) => {
