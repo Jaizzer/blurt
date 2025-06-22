@@ -147,7 +147,12 @@ const query12 = `
             user_id INTEGER NOT NULL,
         FOREIGN KEY (user_id) REFERENCES users(id)
     );
-`
+`;
+
+const query13 = `
+    ALTER TABLE linked_accounts
+    ADD COLUMN email TEXT;
+`;
 
 async function main() {
 	let client;
@@ -175,7 +180,7 @@ async function main() {
 
 		await client.connect();
 
-		await client.query(query11 + query12);
+		await client.query(query13);
 
 		console.log(`Database setup complete.`);
 	} catch (error) {
