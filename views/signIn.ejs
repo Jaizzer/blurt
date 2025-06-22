@@ -12,6 +12,7 @@
 		<div class="inputField">
 			<label for="password">Password</label>
 			<input type="password" placeholder="Password" name="password" id="password" value="<%= formFieldData?.password?.value %>" min="12" required />
+			<button type="button" class="passwordVisibilityToggler"></button>
 			<% if (formFieldData?.password?.error) {%>
 			<p class="errorMessage"><%= formFieldData?.password?.error %></p>
 			<% } %>

@@ -59,6 +59,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 1rem;
+	position: relative;
 }
 
 .inputField {
@@ -131,4 +132,12 @@ a .iconContainer {
 
 .signUpPrompt a {
 	color: var(--primary);
+}
+
+.passwordVisibilityToggler {
+	border: 0px;
+	background-color: transparent;
+	position: absolute;
+	top: 31px;
+	right: 10px;
 }
