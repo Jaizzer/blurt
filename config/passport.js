@@ -17,10 +17,11 @@ passport.use(
 		async function (emailOrUsername, password, done) {
 			try {
 				const user = await User.getByEmail(emailOrUsername) || await User.getByUsername(emailOrUsername);
+				const logInMethod = isEmailOrUsername(emailOrUsername);
 
 				if (!user) {
 					return done(null, false, {
-						message: `Incorrect ${isEmailOrUsername(emailOrUsername)}`,
+						message: `Incorrect ${logInMethod}`,
 					});
 				}
 
