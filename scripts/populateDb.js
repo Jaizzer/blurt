@@ -118,6 +118,35 @@ const query9 = `
 const query10 = `
     ALTER TABLE users
     ADD COLUMN strategy TEXT NOT NULL;
+`;
+
+const query11 = `
+    ALTER TABLE users
+    DROP COLUMN password_hash,
+    DROP COLUMN email,
+    DROP COLUMN email_verification_string,
+    DROP COLUMN is_valid,
+    DROP COLUMN STRATEGY;
+`;
+
+const query12 = `
+    CREATE TABLE IF NOT EXISTS local_accounts (
+        id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+        password_hash TEXT NOT NULL,
+        email VARCHAR(320) NOT NULL,
+        email_verification_string TEXT NOT NULL,
+        is_verified BOOLEAN NOT NULL,
+        user_id INTEGER NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+    );
+
+    CREATE TABLE IF NOT EXISTS linked_accounts (
+        id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+        provider TEXT NOT NULL,
+        provider_user_id TEXT NOT NULL,
+            user_id INTEGER NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+    );
 `
 
 async function main() {
@@ -146,7 +175,7 @@ async function main() {
 
 		await client.connect();
 
-		await client.query(query10);
+		await client.query(query11 + query12);
 
 		console.log(`Database setup complete.`);
 	} catch (error) {
