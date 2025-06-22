@@ -26,5 +26,7 @@ authRouter.get(
 );
 authRouter.get("/google", authControllers.initializeSignInWithGoogle);
 authRouter.get("/google/callback", authControllers.signInWithGoogle);
+authRouter.get("/github", authControllers.initializeSignInWithGithub);
+authRouter.get("/github/callback", authControllers.signInWithGithub);
 
 module.exports = authRouter;

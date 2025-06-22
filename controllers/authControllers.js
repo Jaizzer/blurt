@@ -152,6 +152,31 @@ async function signInWithGoogle(req, res, next) {
 	})(req, res, next);
 }
 
+async function initializeSignInWithGithub(req, res, next) {
+	passport.authenticate("github")(req, res, next);
+}
+
+async function signInWithGithub(req, res, next) {
+	passport.authenticate("github", (error, user, info) => {
+		if (error || !user) {
+			return res.render("error", {
+				title: "Github Sign-In Failed",
+				message: error
+					? error.message
+					: "We couldn't log you in with Github. Please try again or use a different sign-in method.",
+			});
+		} else {
+			req.logIn(user, function (error) {
+				if (error) {
+					return next(error);
+				} else {
+					return res.redirect("/");
+				}
+			});
+		}
+	})(req, res, next);
+}
+
 module.exports = {
 	signUpGet: asyncHandler(signUpGet),
 	signUpPost: asyncHandler(signUpPost),
@@ -161,4 +186,7 @@ module.exports = {
 	signOut: asyncHandler(signOut),
 	initializeSignInWithGoogle: asyncHandler(initializeSignInWithGoogle),
 	signInWithGoogle: asyncHandler(signInWithGoogle),
+
+	initializeSignInWithGithub: asyncHandler(initializeSignInWithGithub),
+	signInWithGithub: asyncHandler(signInWithGithub),
 };

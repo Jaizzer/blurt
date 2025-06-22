@@ -1,6 +1,7 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
+const GithubStrategy = require("passport-github").Strategy;
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel.js");
 const LocalAccount = require("../models/localAccountModel.js");
@@ -107,6 +108,48 @@ passport.use(
 	)
 );
 
+passport.use(
+	new GithubStrategy(
+		{
+			clientID: process.env.GITHUB_CLIENT_ID,
+			clientSecret: process.env.GITHUB_CLIENT_SECRET,
+			callbackURL: `${
+				process.env.NODE_ENVIRONMENT === "PRODUCTION"
+					? process.env.PRODUCTION_URL
+					: `http://localhost:${process.env.PORT || 5000}`
+			}/auth/github/callback`,
+			scope: ["user:email"],
+		},
+		async function (accessToken, refreshToken, profile, done) {
+			// Check if the linked account already exists
+			let githubAccount =
+				await LinkedAccount.getByProviderAndProviderUserId({
+					provider: "Github",
+					providerUserId: profile.id,
+				});
+
+			// Create a linked account if it not yet exists
+			if (!githubAccount) {
+				// Create a new user to be linked with the Github account
+				const newUser = await User.add({
+					username: "",
+				});
+
+				// Link the newly created user to the newly created Github Account
+				githubAccount = await LinkedAccount.add({
+					provider: "Github",
+					providerUserId: profile.id,
+					userId: newUser.id,
+				});
+			}
+
+			// Retrieve the user linked to the Github account
+			let user = await User.getById(githubAccount.user_id);
+
+			return done(null, user);
+		}
+	)
+);
 passport.serializeUser((user, done) => {
 	done(null, user.id);
 });
