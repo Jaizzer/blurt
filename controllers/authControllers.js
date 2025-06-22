@@ -66,9 +66,11 @@ async function signInGet(req, res, next) {
 		formFieldData: {
 			emailOrUsername: {
 				value: req.flash("emailOrUsername"),
-				error: failedSignInErrorMessage?.includes("email", "username")
-					? failedSignInErrorMessage
-					: null,
+				error:
+					failedSignInErrorMessage?.includes("email") ||
+					failedSignInErrorMessage?.includes("username")
+						? failedSignInErrorMessage
+						: null,
 			},
 			password: {
 				value: req.flash("password"),
