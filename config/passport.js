@@ -3,6 +3,8 @@ const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel.js");
+const LocalAccount = require("../models/localAccountModel.js");
+const LinkedAccount = require("../models/linkedAccountModel.js");
 const path = require("path");
 const isEmailOrUsername = require("../utils/isEmailOrUsername.js");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
@@ -61,29 +63,46 @@ passport.use(
 			passReqToCallback: true,
 		},
 		async function (request, accessToken, refreshToken, profile, done) {
-			// Check if the user already exists in the database
-			let user = await User.getByEmail(profile.email);
-
-			// Check if the gmail is already linked ot another account
-			if (user && user.strategy !== "google") {
-				return done(
-					new Error(
-						"This email account is already linked to another account."
-					)
-				);
-			}
-
-			if (!user) {
-				// Save the user to the database if it not yet exists
-				await User.add({
-					email: profile.email,
-					isValid: true,
-					strategy: "google",
+			// Check if the linked account already exists
+			let googleAccount =
+				await LinkedAccount.getByProviderAndProviderUserId({
+					provider: "Google",
+					providerUserId: profile.id,
 				});
 
-				// Retrieve the newly added user
-				user = await User.getByEmail(profile.email);
+			// Create a linked account if it not yet exists
+			if (!googleAccount) {
+				// Check if the gmail is already linked to a local account
+				let isGmailAlreadyLinked = await LocalAccount.getByEmail(
+					profile.email
+				);
+
+				// Send error message if the gmail is already linked to a different account
+				if (isGmailAlreadyLinked) {
+					return done(
+						new Error(
+							"This email account is already linked to another account."
+						)
+					);
+				} else {
+					// Create a new user to be linked with the Google account
+					const newUser = await User.add({
+						username: "",
+					});
+
+					// Link the newly created user to the newly created Google Account
+					googleAccount = await LinkedAccount.add({
+						provider: "Google",
+						providerUserId: profile.id,
+						strategy: "google",
+						userId: newUser.id,
+					});
+				}
 			}
+
+			// Retrieve the user linked to the Google account
+			let user = await User.getById(googleAccount.user_id);
+
 			return done(null, user);
 		}
 	)
