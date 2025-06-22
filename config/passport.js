@@ -4,6 +4,7 @@ const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel.js");
 const path = require("path");
+const isEmailOrUsername = require("../utils/isEmailOrUsername.js");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 passport.use(
@@ -18,7 +19,9 @@ passport.use(
 				const user = await User.getByEmail(emailOrUsername) || await User.getByUsername(emailOrUsername);
 
 				if (!user) {
-					return done(null, false, { message: "Incorrect email or username." });
+					return done(null, false, {
+						message: `Incorrect ${isEmailOrUsername(emailOrUsername)}`,
+					});
 				}
 
 				const isPasswordMatched = await bcrypt.compare(
