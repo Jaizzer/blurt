@@ -27,8 +27,15 @@ async function sendEmailVerification({
 	const mailOptions = {
 		from: "Blurt",
 		to: emailAddress,
-		subject: "Email verification",
-		html: `Press <a href="${verificationLink}"> Here </a> to verify your email. Thanks`,
+		subject: "Email Verification",
+		html: `
+                <p>Hi,</p>
+                <p>Thanks for signing up to <strong>Blurt</strong>!</p>
+                <p>Please verify your email address by clicking the link below:</p>
+                <p><a href="${verificationLink}">Verify Email</a></p>
+                <hr>
+                <p>If you did not register for this application, please ignore this email and do not click the verification link.</p>
+            `,
 	};
 
 	try {
