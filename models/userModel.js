@@ -1,58 +1,20 @@
 const pool = require("../config/pool.js");
 
-async function add({
-	username,
-	email,
-	passwordHash,
-	emailVerificationString,
-	isValid,
-	strategy,
-}) {
-	try {
-		await pool.query(
-			`
-            INSERT INTO users
-            (username, email, password_hash, email_verification_string, is_valid, strategy)
-            VALUES ($1, $2, $3, $4, $5, $6);
-        `,
-			[username, email, passwordHash, emailVerificationString, isValid, strategy]
-		);
-	} catch (error) {
-		console.error("Error inserting user.");
-		throw error;
-	}
-}
-
-async function getByEmailVerificationString(emailVerificationString) {
+async function add({ username }) {
 	try {
 		const { rows } = await pool.query(
 			`
-            SELECT *
-            FROM users
-            WHERE email_verification_string = $1;
-            `,
-			[emailVerificationString]
-		);
-		const user = rows[0];
-		return user;
-	} catch (error) {
-		console.error("Error retrieving user.");
-		throw error;
-	}
-}
-
-async function validate(id) {
-	try {
-		await pool.query(
-			`
-            UPDATE users
-            SET is_valid = TRUE
-            WHERE id = $1
+            INSERT INTO users
+            (username)
+            VALUES ($1)
+            RETURNING *;
         `,
-			[id]
+			[username]
 		);
+
+		return rows[0];
 	} catch (error) {
-		console.error("Error validating user.");
+		console.error("Error inserting user.");
 		throw error;
 	}
 }
@@ -93,24 +55,6 @@ async function getByUsername(username) {
 	}
 }
 
-async function getByEmail(email) {
-	try {
-		const { rows } = await pool.query(
-			`
-            SELECT *
-            FROM users
-            WHERE email = $1;
-            `,
-			[email]
-		);
-		const user = rows[0];
-		return user;
-	} catch (error) {
-		console.error("Error retrieving user.");
-		throw error;
-	}
-}
-
 async function updateUsername({ username, id }) {
 	try {
 		await pool.query(
@@ -128,12 +72,49 @@ async function updateUsername({ username, id }) {
 	}
 }
 
+async function getWithLocalAccountByEmail(email) {
+	try {
+		const { rows } = await pool.query(
+			`
+            SELECT users.id, username, password_hash, email, email_verification_string, is_verified
+            FROM users
+            INNER JOIN local_accounts
+            ON users.id = local_accounts.user_id
+            WHERE local_accounts.email = $1
+        `,
+			[email]
+		);
+		return rows[0];
+	} catch (error) {
+		console.error("Error retrieving the user.");
+		throw error;
+	}
+}
+
+async function getWithLocalAccountByUsername(username) {
+	try {
+		const { rows } = await pool.query(
+			`
+            SELECT users.id, username, password_hash, email, email_verification_string, is_verified
+            FROM users
+            INNER JOIN local_accounts
+            ON users.id = local_accounts.user_id
+            WHERE users.username = $1
+        `,
+			[username]
+		);
+		return rows[0];
+	} catch (error) {
+		console.error("Error retrieving the user.");
+		throw error;
+	}
+}
+
 module.exports = {
 	add,
 	getById,
 	getByUsername,
-	getByEmail,
-	getByEmailVerificationString,
-	validate,
 	updateUsername,
+	getWithLocalAccountByEmail,
+	getWithLocalAccountByUsername,
 };

@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel.js");
+const LocalAccount = require("../models/localAccountModel.js");
 const passport = require("passport");
 const generateRandomString = require("../utils/generateRandomString.js");
 const sendEmailVerification = require("../utils/sendEmailVerification.js");
@@ -13,13 +14,17 @@ async function signUpPost(req, res, next) {
 	const emailVerificationString = generateRandomString();
 
 	// Add the new user
-	await User.add({
-		email: req.body.email,
+	const user = await User.add({
 		username: req.body.username,
+	});
+
+	// Add the new user's account information
+	await LocalAccount.add({
+		email: req.body.email,
 		passwordHash: passwordHash,
 		emailVerificationString: emailVerificationString,
-		isValid: false,
-		strategy: "local",
+		isVerified: false,
+		userId: user.id,
 	});
 
 	await sendEmailVerification({
@@ -35,14 +40,14 @@ async function verifyUser(req, res, next) {
 	// Extract the email verification string
 	const { emailVerificationString } = req.params;
 
-	// Get the user that  matches the verification string
-	const user = await User.getByEmailVerificationString(
+	// Get the local account that  matches the verification string
+	const localAccount = await LocalAccount.getByEmailVerificationString(
 		emailVerificationString
 	);
 
-	if (user) {
-		if (!user.is_valid) {
-			await User.validate(user.id);
+	if (localAccount) {
+		if (!localAccount.is_verified) {
+			await LocalAccount.validate(localAccount.id);
 		}
 		return res.redirect("/auth/signIn");
 	} else {

@@ -1,5 +1,6 @@
 const { body } = require("express-validator");
 const User = require("../models/userModel.js");
+const LocalAccount = require("../models/localAccountModel.js");
 
 const signUp = [
 	body("email")
@@ -9,7 +10,7 @@ const signUp = [
 		.isEmail()
 		.withMessage("Please provide a valid email.")
 		.custom(async (value, { req }) => {
-			const isEmailAlreadyTaken = await User.getByEmail(value);
+			const isEmailAlreadyTaken = await LocalAccount.getByEmail(value);
 			if (isEmailAlreadyTaken) {
 				throw new Error("Email is already taken");
 			}

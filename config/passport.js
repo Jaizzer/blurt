@@ -16,9 +16,14 @@ passport.use(
 		},
 		async function (emailOrUsername, password, done) {
 			try {
-				const user = await User.getByEmail(emailOrUsername) || await User.getByUsername(emailOrUsername);
 				// Determine whether the user is trying to sign in with username or email
 				const logInMethod = isEmailOrUsername(emailOrUsername);
+				const user =
+					logInMethod === "email"
+						? await User.getWithLocalAccountByEmail(emailOrUsername)
+						: await User.getWithLocalAccountByUsername(
+								emailOrUsername
+						  );
 
 				if (!user) {
 					return done(null, false, {
