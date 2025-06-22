@@ -95,6 +95,7 @@ passport.use(
 					googleAccount = await LinkedAccount.add({
 						provider: "Google",
 						providerUserId: profile.id,
+                        email: profile.email,
 						userId: newUser.id,
 					});
 				}
