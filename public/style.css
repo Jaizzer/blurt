@@ -29,7 +29,8 @@ body {
 	min-height: 100vh;
 }
 
-.signUpSection {
+.signUpSection,
+.signInSection {
 	background-color: var(--secondary);
 	padding: 2rem 2.5rem;
 	border-radius: 10px;
