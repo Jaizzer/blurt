@@ -1,15 +1,15 @@
 const pool = require("../config/pool.js");
 
-async function add({ provider, providerUserId, userId }) {
+async function add({ provider, providerUserId, userId, email }) {
 	try {
 		const { rows } = await pool.query(
 			`
             INSERT INTO linked_accounts
-            (provider, provider_user_id, user_id)
-            VALUES ($1, $2, $3)
+            (provider, provider_user_id, user_id, email)
+            VALUES ($1, $2, $3, $4)
             RETURNING *;
         `,
-			[provider, providerUserId, userId]
+			[provider, providerUserId, userId, email]
 		);
 		return rows[0];
 	} catch (error) {
@@ -54,6 +54,24 @@ async function getByForeignKeyUserId(id) {
 	}
 }
 
+async function getByEmail(email) {
+	try {
+		const { rows } = await pool.query(
+			`
+            SELECT *
+            FROM linked_accounts
+            WHERE email = $1;
+            `,
+			[email]
+		);
+		const linkedAccount = rows[0];
+		return linkedAccount;
+	} catch (error) {
+		console.error("Error retrieving local account");
+		throw error;
+	}
+}
+
 async function getByProviderAndProviderUserId({ provider, providerUserId }) {
 	try {
 		const { rows } = await pool.query(
@@ -77,5 +95,6 @@ module.exports = {
 	add,
 	getById,
 	getByForeignKeyUserId,
+	getByEmail,
 	getByProviderAndProviderUserId,
 };
