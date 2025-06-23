@@ -76,10 +76,8 @@ async function verifyUser(req, res, next) {
 		emailVerificationString
 	);
 
-	if (localAccount) {
-		if (!localAccount.is_verified) {
-			await LocalAccount.validate(localAccount.id);
-		}
+	if (localAccount && !localAccount.is_verified) {
+		await LocalAccount.validate(localAccount.id);
 		return res.render("signUpSuccess");
 	} else {
 		return res.render("error", {
