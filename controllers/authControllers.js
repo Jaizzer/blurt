@@ -35,7 +35,7 @@ async function signUpPost(req, res, next) {
 	});
 
 	// Render sign up success messages
-	return res.status(200).render("emailVerification");
+	return res.status(200).render("emailVerificationNotice");
 }
 
 async function renderResendVerificationLinkPage(req, res, next) {
@@ -69,7 +69,7 @@ async function resendVerificationLink(req, res, next) {
 	}
 
 	// Render email verification page
-	return res.status(200).render("emailVerification");
+	return res.status(200).render("emailVerificationNotice");
 }
 
 async function verifyUser(req, res, next) {
@@ -150,7 +150,7 @@ async function signInPost(req, res, next) {
 			// Render email-verification-sent page if the user signing-in is not yet verified
 			if (!user.is_verified) {
 				// Render email verification page
-				return res.status(200).render("emailVerification");
+				return res.status(200).render("emailVerificationNotice");
 			}
 
 			req.logIn(user, function (error) {
