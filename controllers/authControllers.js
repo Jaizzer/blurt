@@ -83,8 +83,9 @@ async function verifyUser(req, res, next) {
 		return res.redirect("/auth/signIn");
 	} else {
 		return res.render("error", {
-			title: "Email Verification Failed",
-			message: "User to verify does not exist",
+			title: "Verification Link Invalid",
+			message:
+				"This verification link is invalid or has already been used.",
 		});
 	}
 }
