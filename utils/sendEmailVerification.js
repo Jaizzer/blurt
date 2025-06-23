@@ -18,17 +18,15 @@ async function sendEmailVerification({
 		},
 	});
 
-	const verificationLink = `${
+	const baseUrl = `${
 		process.env.NODE_ENVIRONMENT === "PRODUCTION"
 			? process.env.PRODUCTION_URL
 			: `http://localhost:${process.env.PORT || 5000}`
-	}/auth/verify/${emailVerificationString}`;
+	}/auth`;
 
-	const resendVerificationLink = `${
-		process.env.NODE_ENVIRONMENT === "PRODUCTION"
-			? process.env.PRODUCTION_URL
-			: `http://localhost:${process.env.PORT || 5000}`
-	}/auth/resendVerificationLink`;
+	const verificationLinkUrl = `${baseUrl}/${emailVerificationString}`;
+
+	const resendVerificationLinkUrl = `${baseUrl}/resendVerificationLink`;
 
 	const mailOptions = {
 		from: "Blurt",
@@ -38,9 +36,9 @@ async function sendEmailVerification({
                 <p>Hi,</p>
                 <p>Thanks for signing up to <strong>Blurt</strong>!</p>
                 <p>Please verify your email address by clicking the link below:</p>
-                <p><a href="${verificationLink}">Verify Email</a></p>
+                <p><a href="${verificationLinkUrl}">Verify Email</a></p>
                 <hr>
-                <p>If the link is not working or has expired, you can request a new one by visiting <a href="${resendVerificationLink}">this page</a>.</p>
+                <p>If the link is not working or has expired, you can request a new one by visiting <a href="${resendVerificationLinkUrl}">this page</a>.</p>
             `,
 	};
 
