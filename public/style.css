@@ -141,3 +141,8 @@ a .iconContainer {
 	top: 31px;
 	right: 10px;
 }
+
+p > a {
+	display: inline;
+    color: var(--primary)
+}
