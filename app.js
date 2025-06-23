@@ -88,6 +88,7 @@ app.use((error, req, res, next) => {
 	res.status(statusCode).render("error", {
 		title: "404 Error",
 		message: "Internal Server Error",
+		redirectLink: null,
 	});
 });
 

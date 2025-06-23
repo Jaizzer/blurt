@@ -92,6 +92,10 @@ async function verifyUser(req, res, next) {
 			title: "Verification Link Invalid",
 			message:
 				"This verification link is invalid or has already been used.",
+			redirectLink: {
+				caption: "Resend Verification Link",
+				href: "/auth/resendVerificationLink",
+			},
 		});
 	}
 }
@@ -183,6 +187,7 @@ async function signInWithGoogle(req, res, next) {
 				message: error
 					? error.message
 					: "We couldn't log you in with Google. Please try again or use a different sign-in method.",
+				redirectLink: null,
 			});
 		} else {
 			req.logIn(user, function (error) {
@@ -208,6 +213,7 @@ async function signInWithGithub(req, res, next) {
 				message: error
 					? error.message
 					: "We couldn't log you in with Github. Please try again or use a different sign-in method.",
+				redirectLink: null,
 			});
 		} else {
 			req.logIn(user, function (error) {
