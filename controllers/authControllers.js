@@ -50,21 +50,23 @@ async function resendVerificationLink(req, res, next) {
 	// Retrieve the local account that matches the provided email from the database
 	const localAccount = await LocalAccount.getByEmail(email);
 
-	// Generate a new email verification string
-	const newEmailVerificationString = generateRandomString();
+	if (!localAccount.is_verified) {
+		// Generate a new email verification string
+		const newEmailVerificationString = generateRandomString();
 
-	// Update the email verification string in the database
-	await LocalAccount.updateEmailVerificationString({
-		id: localAccount.id,
-		emailVerificationString: newEmailVerificationString,
-		emailVerificationStringExpirationDate: getDateTimeAfterMinutes(5),
-	});
+		// Update the email verification string in the database
+		await LocalAccount.updateEmailVerificationString({
+			id: localAccount.id,
+			emailVerificationString: newEmailVerificationString,
+			emailVerificationStringExpirationDate: getDateTimeAfterMinutes(5),
+		});
 
-	// Send the email verification link
-	await sendEmailVerification({
-		emailAddress: req.body.email,
-		emailVerificationString: newEmailVerificationString,
-	});
+		// Send the email verification link
+		await sendEmailVerification({
+			emailAddress: req.body.email,
+			emailVerificationString: newEmailVerificationString,
+		});
+	}
 
 	// Render email verification page
 	return res.status(200).render("emailVerification");
