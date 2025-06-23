@@ -24,6 +24,16 @@ authRouter.get(
 	authMiddlewares.isAuthenticated,
 	authControllers.signOut
 );
+authRouter.get(
+	"/resendVerificationLink",
+	authControllers.renderResendVerificationLinkPage
+);
+authRouter.post(
+	"/resendVerificationLink",
+	authValidators.resendVerificationLink,
+	authMiddlewares.validateResendVerificationLinkForm,
+	authControllers.resendVerificationLink
+);
 authRouter.get("/google", authControllers.initializeSignInWithGoogle);
 authRouter.get("/google/callback", authControllers.signInWithGoogle);
 authRouter.get("/github", authControllers.initializeSignInWithGithub);

@@ -1,0 +1,15 @@
+<section class="resendVerificationLinkSection">
+	<h1>Resend Verification Link</h1>
+	<p>Enter the email address you used to sign up. If your account hasn’t been verified yet, we’ll send you a new verification link.</p>
+	<form action="/auth/resendVerificationLink" method="POST" class="resendVerificationLinkForm">
+		<div class="inputField">
+			<label for="email">Email</label>
+			<input text="email" placeholder="Email" name="email" id="email" value="<%= formFieldData?.email?.value %>" required />
+			<% if (formFieldData?.email?.error) {%>
+			<p class="errorMessage"><%= formFieldData?.email?.error %></p>
+			<% } %>
+		</div>
+		<button type="submit">Send Verification Link</button>
+	</form>
+	<p class="note">If your email is associated with an unverified account, a new verification link will be sent. Otherwise, no action will be taken.</p>
+</section>

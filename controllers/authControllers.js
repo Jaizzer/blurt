@@ -36,6 +36,37 @@ async function signUpPost(req, res, next) {
 	return res.render("emailVerification");
 }
 
+async function renderResendVerificationLinkPage(req, res, next) {
+	return res.render("resendVerificationLink", {
+		formFieldData: null,
+	});
+}
+async function resendVerificationLink(req, res, next) {
+	// Extract the email
+	const email = req.body.email;
+
+	// Retrieve the local account that matches the provided email from the database
+	const localAccount = await LocalAccount.getByEmail(email);
+
+	// Generate a new email verification string
+	const newEmailVerificationString = generateRandomString();
+
+	// Update the email verification string in the database
+	await LocalAccount.updateEmailVerificationString({
+		id: localAccount.id,
+		emailVerificationString: newEmailVerificationString,
+	});
+
+	// Send the email verification link
+	await sendEmailVerification({
+		emailAddress: req.body.email,
+		emailVerificationString: newEmailVerificationString,
+	});
+
+	// Render email verification page
+	return res.render("emailVerification");
+}
+
 async function verifyUser(req, res, next) {
 	// Extract the email verification string
 	const { emailVerificationString } = req.params;
@@ -186,7 +217,10 @@ module.exports = {
 	signOut: asyncHandler(signOut),
 	initializeSignInWithGoogle: asyncHandler(initializeSignInWithGoogle),
 	signInWithGoogle: asyncHandler(signInWithGoogle),
-
+	renderResendVerificationLinkPage: asyncHandler(
+		renderResendVerificationLinkPage
+	),
+	resendVerificationLink: asyncHandler(resendVerificationLink),
 	initializeSignInWithGithub: asyncHandler(initializeSignInWithGithub),
 	signInWithGithub: asyncHandler(signInWithGithub),
 };

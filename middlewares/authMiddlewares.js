@@ -31,6 +31,21 @@ async function validateSignUpForm(req, res, next) {
 	}
 }
 
+async function validateResendVerificationLinkForm(req, res, next) {
+	const isThereError = !validationResult(req).isEmpty();
+	if (isThereError) {
+		// Render errors in the form
+		return res.render("resendVerificationLink", {
+			formFieldData: getFormFieldData({
+				inputValues: req.body,
+				inputErrors: validationResult(req).mapped(),
+			}),
+		});
+	} else {
+		return next();
+	}
+}
+
 async function isAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) {
 		return next();
@@ -40,4 +55,9 @@ async function isAuthenticated(req, res, next) {
 	}
 }
 
-module.exports = { validateSignInForm, validateSignUpForm, isAuthenticated };
+module.exports = {
+	validateSignInForm,
+	validateSignUpForm,
+	validateResendVerificationLinkForm,
+	isAuthenticated,
+};

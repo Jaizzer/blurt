@@ -110,6 +110,23 @@ async function getByEmail(email) {
 	}
 }
 
+async function updateEmailVerificationString({ id, emailVerificationString }) {
+	try {
+		await pool.query(
+			`
+            UPDATE local_accounts
+            SET email_verification_string = $2
+            WHERE id = $1;
+            `,
+			[id, emailVerificationString]
+		);
+		console.log("Email verification string updated successfully.");
+	} catch (error) {
+		console.error("Error retrieving local account");
+		throw error;
+	}
+}
+
 module.exports = {
 	add,
 	getById,
@@ -117,4 +134,5 @@ module.exports = {
 	getByEmailVerificationString,
 	validate,
 	getByForeignKeyUserId,
+	updateEmailVerificationString,
 };
