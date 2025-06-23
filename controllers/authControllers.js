@@ -118,7 +118,7 @@ async function signInGet(req, res, next) {
 }
 
 async function signInPost(req, res, next) {
-	passport.authenticate("local", (error, user, info) => {
+	passport.authenticate("local", async (error, user, info) => {
 		if (error) {
 			return next(error);
 		}
@@ -133,6 +133,12 @@ async function signInPost(req, res, next) {
 
 			return res.redirect("/auth/signIn");
 		} else {
+			// Render email-verification-sent page if the user signing-in is not yet verified
+			if (!user.is_verified) {
+				// Render email verification page
+				return res.render("emailVerification");
+			}
+
 			req.logIn(user, function (error) {
 				if (error) {
 					return next(error);
