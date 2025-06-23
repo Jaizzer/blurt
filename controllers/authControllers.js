@@ -118,7 +118,7 @@ async function signInGet(req, res, next) {
 }
 
 async function signInPost(req, res, next) {
-	passport.authenticate("local", async (error, user, info) => {
+	passport.authenticate("local", (error, user, info) => {
 		if (error) {
 			return next(error);
 		}
