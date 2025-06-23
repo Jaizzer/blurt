@@ -35,11 +35,11 @@ async function signUpPost(req, res, next) {
 	});
 
 	// Render sign up success messages
-	return res.render("emailVerification");
+	return res.status(200).render("emailVerification");
 }
 
 async function renderResendVerificationLinkPage(req, res, next) {
-	return res.render("resendVerificationLink", {
+	return res.status(200).render("resendVerificationLink", {
 		formFieldData: null,
 	});
 }
@@ -67,7 +67,7 @@ async function resendVerificationLink(req, res, next) {
 	});
 
 	// Render email verification page
-	return res.render("emailVerification");
+	return res.status(200).render("emailVerification");
 }
 
 async function verifyUser(req, res, next) {
@@ -86,9 +86,9 @@ async function verifyUser(req, res, next) {
 		Date.now() < localAccount.email_verification_string_expiration_date
 	) {
 		await LocalAccount.validate(localAccount.id);
-		return res.render("signUpSuccess");
+		return res.status(200).render("signUpSuccess");
 	} else {
-		return res.render("error", {
+		return res.status(400).render("error", {
 			title: "Verification Link Invalid",
 			message:
 				"This verification link is invalid or has already been used.",
@@ -97,7 +97,7 @@ async function verifyUser(req, res, next) {
 }
 
 async function signUpGet(req, res, next) {
-	return res.render("signUp", {
+	return res.status(200).render("signUp", {
 		formFieldData: null,
 	});
 }
@@ -105,7 +105,7 @@ async function signUpGet(req, res, next) {
 async function signInGet(req, res, next) {
 	// Get the attached error message to the request after a failed sign in attempt
 	const failedSignInErrorMessage = req.flash("error")[0];
-	return res.render("signIn", {
+	return res.status(200).render("signIn", {
 		formFieldData: {
 			emailOrUsername: {
 				value: req.flash("emailOrUsername"),
@@ -139,19 +139,19 @@ async function signInPost(req, res, next) {
 			// Attach the error message to be displayed on the signIn page
 			req.flash("error", info.message);
 
-			return res.redirect("/auth/signIn");
+			return res.status(302).redirect("/auth/signIn");
 		} else {
 			// Render email-verification-sent page if the user signing-in is not yet verified
 			if (!user.is_verified) {
 				// Render email verification page
-				return res.render("emailVerification");
+				return res.status(200).render("emailVerification");
 			}
 
 			req.logIn(user, function (error) {
 				if (error) {
 					return next(error);
 				} else {
-					return res.redirect("/");
+					return res.status(200).redirect("/");
 				}
 			});
 		}
@@ -163,7 +163,7 @@ async function signOut(req, res, next) {
 		if (error) {
 			return next(error);
 		} else {
-			return res.redirect("/");
+			return res.status(302).redirect("/");
 		}
 	});
 }
@@ -178,7 +178,7 @@ async function initializeSignInWithGoogle(req, res, next) {
 async function signInWithGoogle(req, res, next) {
 	passport.authenticate("google", (error, user, info) => {
 		if (error || !user) {
-			return res.render("error", {
+			return res.status(401).render("error", {
 				title: "Google Sign-In Failed",
 				message: error
 					? error.message
@@ -203,7 +203,7 @@ async function initializeSignInWithGithub(req, res, next) {
 async function signInWithGithub(req, res, next) {
 	passport.authenticate("github", (error, user, info) => {
 		if (error || !user) {
-			return res.render("error", {
+			return res.status(401).render("error", {
 				title: "Github Sign-In Failed",
 				message: error
 					? error.message

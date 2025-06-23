@@ -5,7 +5,7 @@ async function validateSignInForm(req, res, next) {
 	const isThereError = !validationResult(req).isEmpty();
 	if (isThereError) {
 		// Render errors in the form
-		return res.render("signIn", {
+		return res.status(200).render("signIn", {
 			formFieldData: getFormFieldData({
 				inputValues: req.body,
 				inputErrors: validationResult(req).mapped(),
@@ -20,7 +20,7 @@ async function validateSignUpForm(req, res, next) {
 	const isThereInputErrors = !validationResult(req).isEmpty();
 	if (isThereInputErrors) {
 		// Rerender the sign up form with error messages
-		return res.render("signUp", {
+		return res.status(200).render("signUp", {
 			formFieldData: getFormFieldData({
 				inputValues: req.body,
 				inputErrors: validationResult(req).mapped(),
@@ -35,7 +35,7 @@ async function validateResendVerificationLinkForm(req, res, next) {
 	const isThereError = !validationResult(req).isEmpty();
 	if (isThereError) {
 		// Render errors in the form
-		return res.render("resendVerificationLink", {
+		return res.status(200).render("resendVerificationLink", {
 			formFieldData: getFormFieldData({
 				inputValues: req.body,
 				inputErrors: validationResult(req).mapped(),
@@ -51,7 +51,7 @@ async function isAuthenticated(req, res, next) {
 		return next();
 	} else {
 		// Redirect the user to the sign in page if he/she is not yet authenticated
-		return res.redirect("/auth/signIn");
+		return res.status(302).redirect("/auth/signIn");
 	}
 }
 

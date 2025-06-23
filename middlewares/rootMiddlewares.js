@@ -5,7 +5,7 @@ async function validatePickUsernameForm(req, res, next) {
 	const isThereError = !validationResult(req).isEmpty();
 	if (isThereError) {
 		// Render errors in the form
-		return res.render("pickUsername", {
+		return res.status(200).render("pickUsername", {
 			formFieldData: getFormFieldData({
 				inputValues: req.body,
 				inputErrors: validationResult(req).mapped(),
