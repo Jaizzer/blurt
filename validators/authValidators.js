@@ -58,17 +58,7 @@ const resendVerificationLink = [
 		.notEmpty()
 		.withMessage("Please provide an email.")
 		.isEmail()
-		.withMessage("Please provide a valid email.")
-		.custom(async (value, { req }) => {
-			const isEmailAlreadyExisting = await LocalAccount.getByEmail(value);
-
-			if (!isEmailAlreadyExisting) {
-				throw new Error(
-					"We were unable to find a user with that email. Make sure your Email is correct!"
-				);
-			}
-			return true;
-		}),
+		.withMessage("Please provide a valid email."),
 ];
 
 module.exports = {
