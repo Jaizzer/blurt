@@ -50,7 +50,7 @@ async function resendVerificationLink(req, res, next) {
 	// Retrieve the local account that matches the provided email from the database
 	const localAccount = await LocalAccount.getByEmail(email);
 
-	if (!localAccount.is_verified) {
+	if (localAccount && !localAccount.is_verified) {
 		// Generate a new email verification string
 		const newEmailVerificationString = generateRandomString();
 
