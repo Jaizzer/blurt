@@ -5,6 +5,7 @@ const LocalAccount = require("../models/localAccountModel.js");
 const passport = require("passport");
 const generateRandomString = require("../utils/generateRandomString.js");
 const sendEmailVerification = require("../utils/sendEmailVerification.js");
+const getDateTimeAfterMinutes = require("../utils/getDateTimeAfterMinutes.js");
 
 async function signUpPost(req, res, next) {
 	// Hash the password
@@ -23,6 +24,7 @@ async function signUpPost(req, res, next) {
 		email: req.body.email,
 		passwordHash: passwordHash,
 		emailVerificationString: emailVerificationString,
+		emailVerificationStringExpirationDate: getDateTimeAfterMinutes(5),
 		isVerified: false,
 		userId: user.id,
 	});
@@ -55,6 +57,7 @@ async function resendVerificationLink(req, res, next) {
 	await LocalAccount.updateEmailVerificationString({
 		id: localAccount.id,
 		emailVerificationString: newEmailVerificationString,
+		emailVerificationStringExpirationDate: getDateTimeAfterMinutes(5),
 	});
 
 	// Send the email verification link
@@ -76,7 +79,12 @@ async function verifyUser(req, res, next) {
 		emailVerificationString
 	);
 
-	if (localAccount && !localAccount.is_verified) {
+	if (
+		localAccount &&
+		!localAccount.is_verified &&
+		// Check if the email verification string is not yet expired
+		Date.now() < localAccount.email_verification_string_expiration_date
+	) {
 		await LocalAccount.validate(localAccount.id);
 		return res.render("signUpSuccess");
 	} else {

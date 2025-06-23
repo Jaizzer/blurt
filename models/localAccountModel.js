@@ -6,15 +6,23 @@ async function add({
 	emailVerificationString,
 	isVerified,
 	userId,
+	emailVerificationStringExpirationDate,
 }) {
 	try {
 		await pool.query(
 			`
             INSERT INTO local_accounts
-            (email, password_hash, email_verification_string, is_verified, user_id)
-            VALUES ($1, $2, $3, $4, $5);
+            (email, password_hash, email_verification_string, is_verified, user_id, email_verification_string_expiration_date)
+            VALUES ($1, $2, $3, $4, $5, $6);
         `,
-			[email, passwordHash, emailVerificationString, isVerified, userId]
+			[
+				email,
+				passwordHash,
+				emailVerificationString,
+				isVerified,
+				userId,
+				emailVerificationStringExpirationDate,
+			]
 		);
 	} catch (error) {
 		console.error("Error inserting local account.");
@@ -110,15 +118,20 @@ async function getByEmail(email) {
 	}
 }
 
-async function updateEmailVerificationString({ id, emailVerificationString }) {
+async function updateEmailVerificationString({
+	id,
+	emailVerificationString,
+	emailVerificationStringExpirationDate,
+}) {
 	try {
 		await pool.query(
 			`
             UPDATE local_accounts
-            SET email_verification_string = $2
+            SET email_verification_string = $2,
+            email_verification_string_expiration_date = $3
             WHERE id = $1;
             `,
-			[id, emailVerificationString]
+			[id, emailVerificationString, emailVerificationStringExpirationDate]
 		);
 		console.log("Email verification string updated successfully.");
 	} catch (error) {

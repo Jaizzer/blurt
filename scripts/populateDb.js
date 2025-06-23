@@ -113,7 +113,7 @@ const query9 = `
     ALTER TABLE users
     ALTER COLUMN username DROP NOT NULL,
     ALTER COLUMN password_hash DROP NOT NULL;
-`
+`;
 
 const query10 = `
     ALTER TABLE users
@@ -154,6 +154,11 @@ const query13 = `
     ADD COLUMN email TEXT;
 `;
 
+const query14 = `
+    ALTER TABLE local_accounts
+    ADD COLUMN email_verification_string_expiration_date TIMESTAMP;
+`;
+
 async function main() {
 	let client;
 	try {
@@ -180,7 +185,7 @@ async function main() {
 
 		await client.connect();
 
-		await client.query(query13);
+		await client.query(query14);
 
 		console.log(`Database setup complete.`);
 	} catch (error) {
