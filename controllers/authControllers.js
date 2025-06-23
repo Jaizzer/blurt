@@ -80,7 +80,7 @@ async function verifyUser(req, res, next) {
 		if (!localAccount.is_verified) {
 			await LocalAccount.validate(localAccount.id);
 		}
-		return res.redirect("/auth/signIn");
+		return res.render("signUpSuccess");
 	} else {
 		return res.render("error", {
 			title: "Verification Link Invalid",
