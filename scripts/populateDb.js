@@ -159,6 +159,14 @@ const query14 = `
     ADD COLUMN email_verification_string_expiration_date TIMESTAMP;
 `;
 
+const query15 = `
+    ALTER TABLE posts
+    DROP COLUMN title;
+
+    ALTER TABLE posts
+    RENAME COLUMN content TO description
+`;
+
 async function main() {
 	let client;
 	try {
@@ -185,7 +193,7 @@ async function main() {
 
 		await client.connect();
 
-		await client.query(query14);
+		await client.query(query15);
 
 		console.log(`Database setup complete.`);
 	} catch (error) {
