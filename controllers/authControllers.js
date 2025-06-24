@@ -1,37 +1,13 @@
 const asyncHandler = require("express-async-handler");
-const bcrypt = require("bcrypt");
-const User = require("../models/userModel.js");
-const LocalAccount = require("../models/localAccountModel.js");
 const passport = require("passport");
-const generateRandomString = require("../utils/generateRandomString.js");
-const sendEmailVerification = require("../utils/sendEmailVerification.js");
-const getDateTimeAfterMinutes = require("../utils/getDateTimeAfterMinutes.js");
+const authServices = require("../services/authServices.js");
 
 async function signUpPost(req, res, next) {
-	// Hash the password
-	const passwordHash = await bcrypt.hash(req.body.password, 12);
-
-	// Generate email verification string
-	const emailVerificationString = generateRandomString();
-
-	// Add the new user
-	const user = await User.add({
-		username: req.body.username,
-	});
-
-	// Add the new user's account information
-	await LocalAccount.add({
+    // Register the user 
+	await authServices.registerLocalUser({
 		email: req.body.email,
-		passwordHash: passwordHash,
-		emailVerificationString: emailVerificationString,
-		emailVerificationStringExpirationDate: getDateTimeAfterMinutes(5),
-		isVerified: false,
-		userId: user.id,
-	});
-
-	await sendEmailVerification({
-		emailAddress: req.body.email,
-		emailVerificationString: emailVerificationString,
+		username: req.body.username,
+		password: req.body.password,
 	});
 
 	// Render sign up success messages
@@ -44,29 +20,8 @@ async function renderResendVerificationLinkPage(req, res, next) {
 	});
 }
 async function resendVerificationLink(req, res, next) {
-	// Extract the email
-	const email = req.body.email;
-
-	// Retrieve the local account that matches the provided email from the database
-	const localAccount = await LocalAccount.getByEmail(email);
-
-	if (localAccount && !localAccount.is_verified) {
-		// Generate a new email verification string
-		const newEmailVerificationString = generateRandomString();
-
-		// Update the email verification string in the database
-		await LocalAccount.updateEmailVerificationString({
-			id: localAccount.id,
-			emailVerificationString: newEmailVerificationString,
-			emailVerificationStringExpirationDate: getDateTimeAfterMinutes(5),
-		});
-
-		// Send the email verification link
-		await sendEmailVerification({
-			emailAddress: req.body.email,
-			emailVerificationString: newEmailVerificationString,
-		});
-	}
+	// Resend verification link to the provided email if its associated with an unverified account
+	await authServices.resendEmailVerificationLink(req.body.email);
 
 	// Render email verification page
 	return res.status(200).render("emailVerificationNotice");
@@ -76,18 +31,12 @@ async function verifyUser(req, res, next) {
 	// Extract the email verification string
 	const { emailVerificationString } = req.params;
 
-	// Get the local account that  matches the verification string
-	const localAccount = await LocalAccount.getByEmailVerificationString(
-		emailVerificationString
-	);
+	// Verify a user using the email verification string
+	const isVerificationSuccess = (
+		await authServices.verifyUser(emailVerificationString)
+	).success;
 
-	if (
-		localAccount &&
-		!localAccount.is_verified &&
-		// Check if the email verification string is not yet expired
-		Date.now() < localAccount.email_verification_string_expiration_date
-	) {
-		await LocalAccount.validate(localAccount.id);
+	if (isVerificationSuccess) {
 		return res.status(200).render("signUpSuccess");
 	} else {
 		return res.status(400).render("error", {
