@@ -167,6 +167,16 @@ const query15 = `
     RENAME COLUMN content TO description
 `;
 
+const query16 = `
+    CREATE TABLE IF NOT EXISTS media (
+        id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+        name TEXT NOT NULL,
+        post_id INTEGER,
+        FOREIGN KEY (post_id) REFERENCES posts(id)
+);
+`;
+
+
 async function main() {
 	let client;
 	try {
@@ -193,7 +203,7 @@ async function main() {
 
 		await client.connect();
 
-		await client.query(query15);
+		await client.query(query16);
 
 		console.log(`Database setup complete.`);
 	} catch (error) {
