@@ -53,4 +53,4 @@ async function sendEmailVerification({
 	}
 }
 
-module.exports = sendEmailVerification;
+module.exports = { sendEmailVerification };
