@@ -24,7 +24,7 @@ async function sendEmailVerification({
 			: `http://localhost:${process.env.PORT || 5000}`
 	}/auth`;
 
-	const verificationLinkUrl = `${baseUrl}/${emailVerificationString}`;
+	const verificationLinkUrl = `${baseUrl}/verify/${emailVerificationString}`;
 
 	const resendVerificationLinkUrl = `${baseUrl}/resendVerificationLink`;
 
