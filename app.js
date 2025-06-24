@@ -51,6 +51,9 @@ app.use(expressLayouts);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+// Place all <script> blocks at the end of the HTML body to support view-specific scripts in layouts
+app.set("layout extractScripts", true);
+
 // Apply session middleware to handle user sessions (e.g., login state, cookies)
 app.use(sessionMiddleware);
 
