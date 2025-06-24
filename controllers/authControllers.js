@@ -3,7 +3,7 @@ const passport = require("passport");
 const authServices = require("../services/authServices.js");
 
 async function signUpPost(req, res, next) {
-	// Register the user
+    // Register the user 
 	await authServices.registerLocalUser({
 		email: req.body.email,
 		username: req.body.username,
