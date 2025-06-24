@@ -3,7 +3,7 @@ const passport = require("passport");
 const authServices = require("../services/authServices.js");
 
 async function signUpPost(req, res, next) {
-    // Register the user 
+	// Register the user
 	await authServices.registerLocalUser({
 		email: req.body.email,
 		username: req.body.username,
@@ -131,25 +131,7 @@ async function initializeSignInWithGoogle(req, res, next) {
 }
 
 async function signInWithGoogle(req, res, next) {
-	passport.authenticate("google", (error, user, info) => {
-		if (error || !user) {
-			return res.status(401).render("error", {
-				title: "Google Sign-In Failed",
-				message: error
-					? error.message
-					: "We couldn't log you in with Google. Please try again or use a different sign-in method.",
-				redirectLink: null,
-			});
-		} else {
-			req.logIn(user, function (error) {
-				if (error) {
-					return next(error);
-				} else {
-					return res.redirect("/");
-				}
-			});
-		}
-	})(req, res, next);
+	(await authServices.generatePassportLoginHandler("google"))(req, res, next);
 }
 
 async function initializeSignInWithGithub(req, res, next) {
@@ -157,25 +139,7 @@ async function initializeSignInWithGithub(req, res, next) {
 }
 
 async function signInWithGithub(req, res, next) {
-	passport.authenticate("github", (error, user, info) => {
-		if (error || !user) {
-			return res.status(401).render("error", {
-				title: "Github Sign-In Failed",
-				message: error
-					? error.message
-					: "We couldn't log you in with Github. Please try again or use a different sign-in method.",
-				redirectLink: null,
-			});
-		} else {
-			req.logIn(user, function (error) {
-				if (error) {
-					return next(error);
-				} else {
-					return res.redirect("/");
-				}
-			});
-		}
-	})(req, res, next);
+	(await authServices.generatePassportLoginHandler("github"))(req, res, next);
 }
 
 module.exports = {

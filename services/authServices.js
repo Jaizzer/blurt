@@ -4,6 +4,8 @@ const getDateTimeAfterMinutes = require("../utils/getDateTimeAfterMinutes.js");
 const LocalAccount = require("../models/localAccountModel.js");
 const User = require("../models/userModel.js");
 const emailServices = require("../services/emailServices.js");
+const passport = require("passport");
+const capitalize = require("../utils/capitalize.js");
 
 async function registerLocalUser({ username, email, password }) {
 	// Hash the password
@@ -80,8 +82,35 @@ async function verifyUser(emailVerificationString) {
 	}
 }
 
+async function generatePassportLoginHandler(provider) {
+	return function (req, res, next) {
+		passport.authenticate(provider, (error, user, info) => {
+			if (error || !user) {
+				return res.status(401).render("error", {
+					title: `${capitalize(provider)} Sign-In Failed`,
+					message: error
+						? error.message
+						: `We couldn't log you in with ${capitalize(
+								provider
+						  )}. Please try again or use a different sign-in method.`,
+					redirectLink: null,
+				});
+			} else {
+				req.logIn(user, function (error) {
+					if (error) {
+						return next(error);
+					} else {
+						return res.redirect("/");
+					}
+				});
+			}
+		})(req, res, next);
+	};
+}
+
 module.exports = {
 	registerLocalUser,
 	resendEmailVerificationLink,
 	verifyUser,
+	generatePassportLoginHandler,
 };
