@@ -5,10 +5,6 @@ const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config();
 
-// Load the dependencies for handling multipart/form data
-const multer = require("multer");
-const upload = multer({ storage: multer.memoryStorage() });
-
 // Load ejs layout
 const expressLayouts = require("express-ejs-layouts");
 
