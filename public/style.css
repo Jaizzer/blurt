@@ -51,6 +51,8 @@ table {
 
 /* End of Reset CSS */
 
+
+/* Theme */
 @media (prefers-color-scheme: light) {
 	:root {
 		--text: #111023;
@@ -70,3 +72,4 @@ table {
 		--accent: #524da8;
 	}
 }
+/* End of Theme */
