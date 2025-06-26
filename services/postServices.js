@@ -27,7 +27,7 @@ async function savePost({ description, mediaUploads, userId, feelingId }) {
 		mediaUploads: mediaUploads?.map(
 			(mediaUploads) => mediaUploads.fileName
 		),
-		feeling: feelingId,
+		feelingId: feelingId,
 		dateUploaded: new Date(),
 	});
 }
