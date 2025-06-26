@@ -153,3 +153,38 @@ table {
 	}
 }
 /* End of Theme */
+
+/* Initial Stylings */
+* {
+	box-sizing: border-box;
+}
+
+html {
+	height: 100dvh;
+}
+
+body {
+	height: 100%;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
+}
+
+button {
+	padding: 0;
+	border-width: 0;
+
+	background-color: transparent;
+	color: inherit;
+	font: inherit;
+
+	cursor: pointer;
+}
+
+textarea {
+	font: inherit;
+}
+/* End of Initial Stylings */
