@@ -23,7 +23,7 @@ async function createPost(req, res, next) {
 		description: req.body.postDescription,
 		mediaUploads: mediaUploads,
 		userId: req.user.id,
-		feelingId: req.body.feelingId,
+		feelingId: req.body.feeling,
 	});
 
 	return res.status(302).redirect("/");
