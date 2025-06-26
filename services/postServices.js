@@ -12,11 +12,14 @@ async function savePost({ description, mediaUploads, userId, feelingId }) {
 		mediaUpload.fileName = hashedFilename;
 
 		console.log("Debug line 1");
+		console.time("start");
 		storageServices.uploadFile({
 			file: mediaUpload.file,
 			fileName: mediaUpload.fileName,
 			fileType: mediaUpload.fileType,
 		});
+
+		console.timeEnd("end");
 
 		console.log("Debug line 2");
 	});
