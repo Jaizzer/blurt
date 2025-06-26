@@ -47,7 +47,7 @@ function minimizePostAdditionOptionsContainer() {
 	}
 
 	// Add minimize class to the post addition options container
-	postAdditionOptionsContainer.classList.add("minimize");
+	postAdditionOptionsContainer.classList.add("minimized");
 
 	// Replace the minimize button with the maximize button
 	const minimizeButton = document.querySelector(".minimizeButton");
@@ -64,7 +64,7 @@ function maximizePostAdditionOptionsContainer() {
 	}
 
 	// Remove the minimize class to the post addition options container
-	postAdditionOptionsContainer.classList.remove("minimize");
+	postAdditionOptionsContainer.classList.remove("minimized");
 
 	// Replace the maximize button with the minimize button
 	const maximizeButton = document.querySelector(".maximizeButton");
