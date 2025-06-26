@@ -1,5 +1,6 @@
 const Post = require("../models/postModel.js");
 const storageServices = require("../services/storageServices.js");
+const capitalize = require("../utils/capitalize.js");
 const generateRandomString = require("../utils/generateRandomString.js");
 
 async function savePost({ description, mediaUploads, userId, feelingId }) {
@@ -31,6 +32,14 @@ async function savePost({ description, mediaUploads, userId, feelingId }) {
 	});
 }
 
+async function getAllFeelings() {
+	return (await Post.getAllFeelings()).map((feeling) => ({
+		...feeling,
+		name: capitalize(feeling.name),
+	}));
+}
+
 module.exports = {
 	savePost,
+	getAllFeelings,
 };

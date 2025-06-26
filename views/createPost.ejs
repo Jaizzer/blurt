@@ -13,6 +13,16 @@
 	<form class="createPostForm" action="/post/create" method="POST" enctype="multipart/form-data">
 		<%- include('partials/userBadge.ejs') %>
 		<div class="inputField">
+			<select name="feeling" id="feeling">
+				<option value <%= `${ !formFieldData?.feeling && 'selected' }` %> disabled>Choose a feeling</option>
+				<% feelings.forEach(feeling => { %> <option value="<%= feeling.id %>" <%= `${ formFieldData?.feeling?.value === `${feeling.id}` ? 'selected' : 'null'}` %>><%= feeling.name + feeling.emoji  %></option>
+				<% })%>
+			</select>
+			<% if (formFieldData?.feeling?.error) {%>
+			<p class="errorMessage"><%= formFieldData?.feeling?.error %></p>
+			<% } %>
+		</div>
+		<div class="inputField">
 			<textarea name="postDescription" id="postDescription" placeholder="What do you want to talk about?" maxlength="63206"></textarea>
 			<% if (formFieldData?.postDescription?.error) {%>
 			<p class="errorMessage"><%= formFieldData?.postDescription?.error %></p>

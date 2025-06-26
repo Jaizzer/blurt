@@ -2,8 +2,12 @@ const asyncHandler = require("express-async-handler");
 const postServices = require("../services/postServices.js");
 
 async function renderCreatePostPage(req, res, next) {
+	// Retrieve all feelings from the database
+	const feelings = await postServices.getAllFeelings();
+
 	return res.status(200).render("createPost", {
 		formFieldData: null,
+		feelings: feelings,
 	});
 }
 

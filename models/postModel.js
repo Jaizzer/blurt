@@ -50,6 +50,20 @@ async function saveMediaUploads({ mediaUploads, postId }) {
 	}
 }
 
+async function getAllFeelings() {
+	try {
+		const { rows } = await pool.query(`
+                SELECT *
+                FROM feelings;
+        `);
+		return rows;
+	} catch (error) {
+		console.error("Error retrieving feelings.");
+		throw error;
+	}
+}
+
 module.exports = {
 	add,
+	getAllFeelings,
 };

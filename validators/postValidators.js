@@ -1,4 +1,5 @@
 const { body } = require("express-validator");
+const postServices = require("../services/postServices.js");
 
 const createPost = [
 	body("postDescription")
@@ -9,6 +10,16 @@ const createPost = [
 		.withMessage(
 			"Oops! Your post is a bit too long. Please keep it under 63,206 characters"
 		),
+
+	body("feeling")
+		.custom(async (value, { req }) => {
+			const feelings = await postServices.getAllFeelings();
+			const feelingIds = feelings.map((feeling) => {
+				return feeling.id;
+			});
+			return feelingIds.includes(parseInt(value));
+		})
+		.withMessage("Invalid feeling value."),
 
 	body("mediaUploads")
 		.custom((value, { req }) => {
