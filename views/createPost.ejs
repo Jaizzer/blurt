@@ -13,9 +13,9 @@
 	<form class="createPostForm" action="/post/create" method="POST" enctype="multipart/form-data">
 		<%- include('partials/userBadge.ejs') %>
 		<div class="inputField">
-			<select name="feeling" id="feeling">
+			<select name="feeling" id="feeling" hidden>
 				<option value <%= `${ !formFieldData?.feeling ? 'selected' : '' }` %> disabled>Choose a feeling</option>
-				<% feelings.forEach(feeling => { %> <option value="<%= feeling.id %>" <%= `${ formFieldData?.feeling?.value === `${feeling.id}` ? 'selected' : ''}` %>><%= feeling.name + feeling.emoji  %></option>
+				<% feelings.forEach(feeling => { %> <option value="<%= feeling.id %>" <%= `${ formFieldData?.feeling?.value === `${feeling.id}` ? 'selected' : ''}` %> data-id=<%= feeling.id %> data-name=<%= feeling.name %> data-emoji=<%= feeling.emoji %>><%= feeling.name + feeling.emoji  %></option>
 				<% })%>
 			</select>
 			<% if (formFieldData?.feeling?.error) {%>
@@ -48,10 +48,20 @@
 				</span>
 				<h3>Media</h3>
 			</button>
+			<button class="postAdditionOption" type="button" id="addFeelingOption">
+				<span class="iconContainer">
+					😁
+				</span>
+				<span>
+					+
+				</span>
+				<h3>Feeling</h3>
+			</button>
 		</div>
 
 	</form>
 	<script src="/createPost.js" defer></script>
 	<script src="/removeInputErrorMessages.js" defer></script>
-    <script src="/addMediaUpload.js" defer></script>
+	<script src="/addMediaUpload.js" defer></script>
+	<script src="/addFeeling.js" defer></script>
 </section>
