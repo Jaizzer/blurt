@@ -38,11 +38,7 @@ async function uploadFile({ file, fileName, fileType }) {
 			ContentType: fileType,
 		};
 		const command = new PutObjectCommand(params);
-		console.log("Initializing file upload...");
-		console.log(command);
-		const response = await s3.send(command);
-		console.log(response);
-		console.log("File uploaded to S3 bucket.");
+		await s3.send(command);
 	} catch (error) {
 		throw error;
 	}
