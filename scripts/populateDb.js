@@ -176,6 +176,11 @@ const query16 = `
 );
 `;
 
+const query17 = `
+    DELETE FROM feelings
+    WHERE id >=9;
+`
+
 
 async function main() {
 	let client;
@@ -203,7 +208,7 @@ async function main() {
 
 		await client.connect();
 
-		await client.query(query16);
+		await client.query(query17);
 
 		console.log(`Database setup complete.`);
 	} catch (error) {
