@@ -3,17 +3,21 @@ const storageServices = require("../services/storageServices.js");
 const generateRandomString = require("../utils/generateRandomString.js");
 
 async function savePost({ description, mediaUploads, userId, feelingId }) {
-	// Save the media uploads into cloud
-	for (const mediaUpload of mediaUploads || []) {
-		const hashedFilename = generateRandomString();
-		mediaUpload.fileName = hashedFilename;
+	// Hash the filenames
+	mediaUploads.forEach((mediaUpload) => {
+		mediaUpload.fileName = generateRandomString();
+	});
 
-		await storageServices.uploadFile({
-			file: mediaUpload.file,
-			fileName: mediaUpload.fileName,
-			fileType: mediaUpload.fileType,
-		});
-	}
+	// Same the media uploads to the cloud in-parallel
+	await Promise.all(
+		mediaUploads.map((mediaUpload) => {
+			return storageServices.uploadFile({
+				file: mediaUpload.file,
+				fileName: mediaUpload.fileName,
+				fileType: mediaUpload.fileType,
+			});
+		})
+	);
 
 	// Save the post to the database
 	await Post.add({
