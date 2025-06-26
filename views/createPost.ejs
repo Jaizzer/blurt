@@ -29,12 +29,29 @@
 			<% } %>
 		</div>
 		<div class="inputField">
-			<input type="file" id="mediaUploads" name="mediaUploads" accept="image/*" multiple />
+			<input type="file" id="mediaUploads" name="mediaUploads" accept="image/*" multiple hidden />
+			<div class="mediaUploadsPreview">
+
+			</div>
 			<% if (formFieldData?.mediaUploads?.error) {%>
 			<p class="errorMessage"><%= formFieldData?.mediaUploads?.error %></p>
 			<% } %>
 		</div>
+		<div class="postAdditionOptions">
+			<h2>Add to your post</h2>
+			<button class="postAdditionOption" type="button" id="addMediaOption">
+				<span class="iconContainer">
+					📷
+				</span>
+				<span>
+					+
+				</span>
+				<h3>Media</h3>
+			</button>
+		</div>
+
 	</form>
 	<script src="/createPost.js" defer></script>
 	<script src="/removeInputErrorMessages.js" defer></script>
+    <script src="/addMediaUpload.js" defer></script>
 </section>
