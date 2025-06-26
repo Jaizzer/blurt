@@ -6,23 +6,22 @@ async function savePost({ description, mediaUploads, userId, feelingId }) {
 	console.log("Debug line 3");
 
 	// Save the media uploads into cloud
-	mediaUploads?.forEach(async (mediaUpload) => {
-		// Hash the filenames
+	for (const mediaUpload of mediaUploads || []) {
 		const hashedFilename = generateRandomString();
 		mediaUpload.fileName = hashedFilename;
 
 		console.log("Debug line 1");
 		console.time("timer");
-		storageServices.uploadFile({
+
+		await storageServices.uploadFile({
 			file: mediaUpload.file,
 			fileName: mediaUpload.fileName,
 			fileType: mediaUpload.fileType,
 		});
 
 		console.timeEnd("timer");
-
 		console.log("Debug line 2");
-	});
+	}
 
 	console.log("Debug line 4");
 
