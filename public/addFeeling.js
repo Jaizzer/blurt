@@ -9,7 +9,11 @@ addFeelingOptionButton.addEventListener("click", () => {
 
 	// Create a feeling selection container if it does not exist
 	if (!feelingSelectionContainer) {
-		document.body.appendChild(createFeelingSelectionContainer());
+		const form = document.querySelector("form");
+		form.parentElement.insertBefore(
+			createFeelingSelectionContainer(),
+			form.nextElementSibling
+		);
 	}
 });
 
