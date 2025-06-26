@@ -161,10 +161,12 @@ table {
 
 html {
 	height: 100dvh;
+	font-size: 62.5%;
 }
 
 body {
 	height: 100%;
+    font-size: 1.6rem;
 }
 
 a {
