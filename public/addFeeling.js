@@ -106,7 +106,7 @@ function createFeelingBadge(feeling) {
 
 	// Create content
 	const content = document.createElement("p");
-	content.textContent = `${feeling.name} ${feeling.emoji}`;
+	content.textContent = `is feeling ${feeling.name} ${feeling.emoji}`;
 	feelingBadge.appendChild(content);
 
 	// Create delete feeling badge button
