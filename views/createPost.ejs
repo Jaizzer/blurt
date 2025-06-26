@@ -37,26 +37,32 @@
 			<p class="errorMessage"><%= formFieldData?.mediaUploads?.error %></p>
 			<% } %>
 		</div>
-		<div class="postAdditionOptions">
+		<div class="postAdditionOptionsContainer">
 			<h2>Add to your post</h2>
-			<button class="postAdditionOption" type="button" id="addMediaOption">
-				<span class="iconContainer">
-					📷
-				</span>
-				<span>
-					+
-				</span>
-				<h3>Media</h3>
-			</button>
-			<button class="postAdditionOption" type="button" id="addFeelingOption">
-				<span class="iconContainer">
-					😁
-				</span>
-				<span>
-					+
-				</span>
-				<h3>Feeling</h3>
-			</button>
+			<ul class="postAdditionOptions">
+				<li>
+					<button class="postAdditionOption" type="button" id="addMediaOption">
+						<span class="iconContainer">
+							📷
+						</span>
+						<span>
+							+
+						</span>
+						<h3>Media</h3>
+					</button>
+				</li>
+				<li>
+					<button class="postAdditionOption" type="button" id="addFeelingOption">
+						<span class="iconContainer">
+							😁
+						</span>
+						<span>
+							+
+						</span>
+						<h3>Feeling</h3>
+					</button>
+				</li>
+			</ul>
 		</div>
 
 	</form>
