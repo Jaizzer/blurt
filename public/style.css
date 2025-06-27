@@ -276,6 +276,7 @@ input {
 .signUpSection,
 .signInSection,
 .pickUsernameSection,
+.signUpSuccessSection,
 .emailVerificationNoticeSection {
 	padding: 4rem;
 	border-radius: var(--radius-md);
@@ -364,12 +365,14 @@ p.signInPrompt {
 
 .signUpPrompt a,
 .signInPrompt a,
+.signUpSuccessSection a,
 .emailVerificationNoticeSection a {
 	color: var(--accent);
 }
 
 .signUpPrompt a:hover,
 .signInPrompt a:hover,
+.signUpSuccessSection a:hover,
 .emailVerificationNoticeSection a:hover {
 	color: var(--text);
 }
@@ -377,6 +380,11 @@ p.signInPrompt {
 .authProvidersContainer svg {
 	width: 4rem;
 	height: 4rem;
+}
+
+.signUpSuccessSection svg {
+    width: 5rem;
+    height: 5rem;
 }
 
 /* End of Authentication Stylings */
