@@ -75,7 +75,7 @@ function createFeelingSelectionContainer() {
 
 		// Create the feeling button
 		const chooseFeelingButton = document.createElement("button");
-		chooseFeelingButton.textContent = `${feeling.name} ${feeling.emoji}`;
+		chooseFeelingButton.textContent = `${feeling.emoji} ${feeling.name} `;
 		chooseFeelingButton.addEventListener("click", () => {
 			// Update the selected feeling
 			feelingSelectInput.value = feeling.id;
