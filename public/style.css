@@ -328,8 +328,8 @@ input {
 	font-size: 1.35rem;
 }
 
-.signUpPrompt,
-.signInPrompt {
+p.signUpPrompt,
+p.signInPrompt {
 	font-size: 1.3rem;
 	text-align: center;
 }
