@@ -10,8 +10,8 @@
 		<h1>Create Post</h1>
 		<button class="postButton" type="submit">Post</button>
 	</div>
+	<%- include('partials/userBadge.ejs') %>
 	<form class="createPostForm" action="/post/create" method="POST" enctype="multipart/form-data">
-		<%- include('partials/userBadge.ejs') %>
 		<div class="inputField">
 			<select name="feeling" id="feeling" hidden>
 				<option value <%= `${ !formFieldData?.feeling ? 'selected' : '' }` %> disabled>Choose a feeling</option>
