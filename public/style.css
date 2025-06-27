@@ -388,3 +388,33 @@ p.signInPrompt {
 }
 
 /* End of Authentication Stylings */
+
+/* Error Stylings */
+.errorSection {
+	padding: 4rem;
+	border-radius: var(--radius-md);
+
+	background-color: var(--secondary);
+
+	display: flex;
+	flex-direction: column;
+	gap: 3rem;
+}
+
+.errorSection a {
+	color: var(--accent);
+}
+
+.errorSection a:hover {
+	color: var(--text);
+}
+
+.errorSection svg {
+    width: 5rem;
+    height: 5rem;
+}
+
+.errorSection svg rect {
+	fill: var(--primary);
+}
+/* End of Error Stylings */
