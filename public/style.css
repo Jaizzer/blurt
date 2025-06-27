@@ -289,11 +289,31 @@ input {
 	width: clamp(30rem, 90vw, 50rem);
 }
 
+.resendVerificationLinkSection {
+	padding: 4rem;
+	border-radius: var(--radius-md);
+
+	background-color: var(--secondary);
+
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.resendVerificationLinkSection {
+	width: clamp(30rem, 90vw, 65rem);
+}
+
 .signUpForm,
-.signInForm {
+.signInForm,
+.resendVerificationLinkForm {
 	display: flex;
 	flex-direction: column;
 	gap: 1.75rem;
+}
+
+.resendVerificationLinkSection p {
+	font-size: 1.45rem;
 }
 
 .authProvidersContainer {
