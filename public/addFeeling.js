@@ -2,6 +2,32 @@ const addFeelingOptionButton = document.querySelector("#addFeelingOption");
 const feelingSelectInput = document.querySelector("select");
 const userBadge = document.querySelector(".userBadge");
 
+// Retrieve all feelings
+const feelingOptions = Array.from(
+	document.querySelectorAll("#feeling > option")
+)
+	// Filter out the place holder option
+	.filter((feeling) => feeling.value);
+
+// Filter out the feelings
+const feelings = feelingOptions.map((feelingOption) => ({
+	id: feelingOption.dataset.id,
+	name: feelingOption.dataset.name,
+	emoji: feelingOption.dataset.emoji,
+}));
+
+// Create feeling badge if the select input already has a value
+if (feelingSelectInput.value) {
+	console.log(feelingSelectInput.value);
+	const feeling = feelings.filter(
+		(feeling) => feeling.id == feelingSelectInput.value
+	)[0];
+	const feelingBadge = createFeelingBadge(feeling);
+
+	// Put the new feeling badge below the user badge
+	userBadge.appendChild(feelingBadge);
+}
+
 addFeelingOptionButton.addEventListener("click", () => {
 	const feelingSelectionContainer = document.querySelector(
 		".feelingSelectionContainer"
@@ -18,20 +44,6 @@ addFeelingOptionButton.addEventListener("click", () => {
 });
 
 function createFeelingSelectionContainer() {
-	// Retrieve all feelings
-	const feelingOptions = Array.from(
-		document.querySelectorAll("#feeling > option")
-	)
-		// Filter out the place holder option
-		.filter((feeling) => feeling.value);
-
-	// Filter out the feelings
-	const feelings = feelingOptions.map((feelingOption) => ({
-		id: feelingOption.dataset.id,
-		name: feelingOption.dataset.name,
-		emoji: feelingOption.dataset.emoji,
-	}));
-
 	// Create the feeling selection container
 	const feelingSelectionContainer = document.createElement("div");
 	feelingSelectionContainer.classList.add("feelingSelectionContainer");
