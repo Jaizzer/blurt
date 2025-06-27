@@ -387,6 +387,10 @@ p.signInPrompt {
     height: 5rem;
 }
 
+.signUpSuccessSection svg rect {
+    fill: var(--primary);
+}
+
 /* End of Authentication Stylings */
 
 /* Error Stylings */
