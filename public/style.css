@@ -275,7 +275,8 @@ input {
 
 /* Authentication Stylings */
 .signUpSection,
-.signInSection {
+.signInSection,
+.emailVerificationNoticeSection {
 	padding: 4rem;
 	border-radius: var(--radius-md);
 
@@ -305,7 +306,8 @@ input {
 	gap: 2rem;
 }
 
-.resendVerificationLinkSection {
+.resendVerificationLinkSection,
+.emailVerificationNoticeSection {
 	width: clamp(30rem, 90vw, 65rem);
 }
 
@@ -359,12 +361,14 @@ p.signInPrompt {
 }
 
 .signUpPrompt a,
-.signInPrompt a {
+.signInPrompt a,
+.emailVerificationNoticeSection a {
 	color: var(--accent);
 }
 
 .signUpPrompt a:hover,
-.signInPrompt a:hover {
+.signInPrompt a:hover,
+.emailVerificationNoticeSection a:hover {
 	color: var(--text);
 }
 
