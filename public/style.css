@@ -388,7 +388,7 @@ p.signInPrompt {
 }
 
 .signUpSuccessSection svg rect {
-	fill: var(--primary);
+	fill: var(--accent);
 }
 
 /* End of Authentication Stylings */
@@ -421,6 +421,6 @@ p.signInPrompt {
 }
 
 .errorSection svg rect {
-	fill: var(--primary);
+	fill: var(--accent);
 }
 /* End of Error Stylings */
