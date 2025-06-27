@@ -383,12 +383,12 @@ p.signInPrompt {
 }
 
 .signUpSuccessSection svg {
-    width: 5rem;
-    height: 5rem;
+	width: 5rem;
+	height: 5rem;
 }
 
 .signUpSuccessSection svg rect {
-    fill: var(--primary);
+	fill: var(--primary);
 }
 
 /* End of Authentication Stylings */
@@ -414,8 +414,8 @@ p.signInPrompt {
 }
 
 .errorSection svg {
-    width: 5rem;
-    height: 5rem;
+	width: 5rem;
+	height: 5rem;
 }
 
 .errorSection svg rect {
