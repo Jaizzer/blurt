@@ -257,6 +257,11 @@ button[type="submit"] {
 	font-size: 1.4rem;
 }
 
+button[type="submit"]:hover {
+	background-color: var(--accent);
+}
+
+
 input {
 	min-height: 4rem;
 
@@ -356,6 +361,11 @@ p.signInPrompt {
 .signUpPrompt a,
 .signInPrompt a {
 	color: var(--accent);
+}
+
+.signUpPrompt a:hover,
+.signInPrompt a:hover {
+	color: var(--text);
 }
 
 .authProvidersContainer svg {
