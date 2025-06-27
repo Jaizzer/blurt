@@ -81,9 +81,8 @@ function createFeelingSelectionContainer() {
 			}
 
 			// Put the new feeling badge below the user badge
-			userBadge.parentElement.insertBefore(
+			userBadge.appendChild(
 				feelingBadge,
-				userBadge.nextElementSibling
 			);
 
 			// Close the feeling selection container
