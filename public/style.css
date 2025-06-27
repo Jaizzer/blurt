@@ -261,7 +261,6 @@ button[type="submit"]:hover {
 	background-color: var(--accent);
 }
 
-
 input {
 	min-height: 4rem;
 
@@ -276,6 +275,7 @@ input {
 /* Authentication Stylings */
 .signUpSection,
 .signInSection,
+.pickUsernameSection,
 .emailVerificationNoticeSection {
 	padding: 4rem;
 	border-radius: var(--radius-md);
@@ -287,7 +287,8 @@ input {
 	gap: 3rem;
 }
 
-.signInSection {
+.signInSection,
+.pickUsernameSection {
 	width: clamp(30rem, 90vw, 40rem);
 }
 
@@ -313,6 +314,7 @@ input {
 
 .signUpForm,
 .signInForm,
+.pickUsernameForm,
 .resendVerificationLinkForm {
 	display: flex;
 	flex-direction: column;
