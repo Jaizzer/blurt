@@ -221,7 +221,6 @@ h1 {
 	font-size: 2.4rem;
 }
 
-
 .iconContainer svg {
 	width: 2rem;
 	height: 2rem;
@@ -339,11 +338,9 @@ p.signInPrompt {
 	color: var(--accent);
 }
 
-
 .authProvidersContainer svg {
-    width: 4rem;
-    height: 4rem;
+	width: 4rem;
+	height: 4rem;
 }
-
 
 /* End of Authentication Stylings */
