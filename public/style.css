@@ -395,6 +395,8 @@ p.signInPrompt {
 
 /* Error Stylings */
 .errorSection {
+	width: clamp(30rem, 90vw, 40rem);
+
 	padding: 4rem;
 	border-radius: var(--radius-md);
 
