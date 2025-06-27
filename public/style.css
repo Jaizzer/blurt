@@ -130,6 +130,12 @@ table {
 	border-spacing: 0;
 }
 
+input {
+	-webkit-appearance: none;
+	box-shadow: none !important;
+	outline: none;
+}
+
 /* End of Reset CSS */
 
 /* Theme */
@@ -154,6 +160,16 @@ table {
 }
 /* End of Theme */
 
+/* Border Radius */
+:root {
+	--radius-none: 0px;
+	--radius-sm: 5px;
+	--radius-md: 10px;
+	--radius-lg: 15px;
+	--radius-full: 999px;
+}
+
+/* End of Border Radius */
 /* Initial Stylings */
 * {
 	box-sizing: border-box;
@@ -166,12 +182,16 @@ html {
 
 body {
 	height: 100%;
-    
-    background-color: var(--background);
-    
-    font-size: 1.6rem;
-    font-family: "Poppins", sans-serif;
-    color: var(--text);
+
+	background-color: var(--background);
+
+	font-size: 1.6rem;
+	font-family: "Poppins", sans-serif;
+	color: var(--text);
+
+	display: grid;
+	justify-content: center;
+	align-content: center;
 }
 
 a {
@@ -195,3 +215,135 @@ textarea {
 	font: inherit;
 }
 /* End of Initial Stylings */
+
+/* General stylings */
+h1 {
+	font-size: 2.4rem;
+}
+
+
+.iconContainer svg {
+	width: 2rem;
+	height: 2rem;
+}
+
+.inputField {
+	position: relative;
+
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.inputField label {
+	font-size: 1.4rem;
+}
+
+.inputField .passwordVisibilityToggler {
+	position: absolute;
+	top: 2.55rem;
+	right: 1rem;
+}
+
+.inputField .errorMessage {
+	font-size: 1.25rem;
+	color: red;
+}
+
+button[type="submit"] {
+	padding: 0.75rem;
+	border-radius: var(--radius-sm);
+
+	background-color: var(--primary);
+	font-size: 1.4rem;
+}
+
+input {
+	min-height: 4rem;
+
+	padding: 0.75rem;
+	border-radius: var(--radius-sm);
+
+	font-size: 1.65rem;
+}
+
+/* End of General stylings */
+
+/* Authentication Stylings */
+.signUpSection,
+.signInSection {
+	padding: 4rem;
+	border-radius: var(--radius-md);
+
+	background-color: var(--secondary);
+
+	display: flex;
+	flex-direction: column;
+	gap: 3rem;
+}
+
+.signInSection {
+	width: clamp(30rem, 90vw, 40rem);
+}
+
+.signUpSection {
+	width: clamp(30rem, 90vw, 50rem);
+}
+
+.signUpForm,
+.signInForm {
+	display: flex;
+	flex-direction: column;
+	gap: 1.75rem;
+}
+
+.authProvidersContainer {
+	position: relative;
+
+	padding-top: 1.75rem;
+	border-top: 1px solid var(--text);
+
+	display: grid;
+	grid-template-columns: auto;
+	grid-auto-flow: column;
+	justify-content: center;
+	gap: 1.75rem;
+}
+
+.authProvidersContainer > p {
+	position: absolute;
+	top: -7px;
+	left: 0;
+	right: 0;
+
+	width: fit-content;
+
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 0.75rem;
+	padding-right: 0.75rem;
+	border-radius: var(--radius-full);
+
+	background-color: var(--secondary);
+	font-size: 1.35rem;
+}
+
+.signUpPrompt,
+.signInPrompt {
+	font-size: 1.3rem;
+	text-align: center;
+}
+
+.signUpPrompt a,
+.signInPrompt a {
+	color: var(--accent);
+}
+
+
+.authProvidersContainer svg {
+    width: 4rem;
+    height: 4rem;
+}
+
+
+/* End of Authentication Stylings */
