@@ -212,7 +212,9 @@ button {
 }
 
 textarea {
+	resize: none;
 	font: inherit;
+    outline: none;
 }
 /* End of Initial Stylings */
 
