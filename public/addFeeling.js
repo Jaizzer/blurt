@@ -85,8 +85,8 @@ function createFeelingSelectionContainer() {
 			userBadge.appendChild(feelingBadge);
 
 			// Close the feeling selection container
-			feelingSelectionContainer.parentElement.removeChild(
-				feelingSelectionContainer
+			background.parentElement.removeChild(
+				background
 			);
 		});
 
