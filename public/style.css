@@ -553,6 +553,8 @@ p.signInPrompt {
 	grid-template-columns: 1fr auto;
 	align-items: center;
 	gap: 1rem;
+
+	animation: animateToBottom 0.3s;
 }
 
 .postAdditionOptionsContainer h2 {
@@ -649,6 +651,30 @@ p.signInPrompt {
 .postAdditionOptionsContainer.minimized {
 	grid-template-columns: 1fr auto;
 	align-items: start;
+
+	animation: animateFromBottom 0.3s;
+}
+
+@keyframes animateFromBottom {
+	from {
+		transform: translate3d(0, 10px, 0);
+		opacity: 0;
+	}
+	to {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+}
+
+@keyframes animateToBottom {
+	from {
+		transform: translate3d(0, -10px, 0);
+		opacity: 0;
+	}
+	to {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
 }
 
 .postAdditionOptionsContainer.minimized ul {
@@ -685,6 +711,19 @@ p.signInPrompt {
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;
+
+	animation-duration: 0.2s;
+	animation-name: slide-in;
+}
+
+@keyframes slide-in {
+	from {
+		scale: 0.5;
+	}
+
+	to {
+		scale: 1;
+	}
 }
 
 .feelingSelectionContainer ul {
