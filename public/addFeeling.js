@@ -35,18 +35,23 @@ addFeelingOptionButton.addEventListener("click", () => {
 
 	// Create a feeling selection container if it does not exist
 	if (!feelingSelectionContainer) {
-		const form = document.querySelector("form");
-		form.parentElement.insertBefore(
+		const createPostSection = document.querySelector(".createPostSection");
+		createPostSection.parentElement.insertBefore(
 			createFeelingSelectionContainer(),
-			form.nextElementSibling
+			createPostSection.nextElementSibling
 		);
 	}
 });
 
 function createFeelingSelectionContainer() {
+	// Create background
+	const background = document.createElement("div");
+	background.classList.add("background");
+
 	// Create the feeling selection container
 	const feelingSelectionContainer = document.createElement("div");
 	feelingSelectionContainer.classList.add("feelingSelectionContainer");
+	background.appendChild(feelingSelectionContainer);
 
 	// Create the feeling selection
 	const feelingSelection = document.createElement("ul");
@@ -95,13 +100,11 @@ function createFeelingSelectionContainer() {
 	cancelButton.classList.add("cancelButton");
 	cancelButton.innerHTML = `Cancel`;
 	cancelButton.addEventListener("click", () => {
-		feelingSelectionContainer.parentElement.removeChild(
-			feelingSelectionContainer
-		);
+		background.parentElement.removeChild(background);
 	});
 	feelingSelectionContainer.appendChild(cancelButton);
 
-	return feelingSelectionContainer;
+	return background;
 }
 
 function createFeelingBadge(feeling) {
