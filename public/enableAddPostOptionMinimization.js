@@ -8,12 +8,8 @@ minimizeButton.classList.add("minimizeButton");
 minimizeButton.type = "button";
 minimizeButton.innerHTML = `
     <div class="iconContainer">
-        <svg width="10px" height="10px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--fxemoji" preserveAspectRatio="xMidYMid meet" fill="" style="--darkreader-inline-fill: #000000; --darkreader-inline-stroke: #e8e6e3;" stroke="">
-            <g id="SVGRepo_bgCarrier" stroke-width="0" />
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="16.384" style="--darkreader-inline-stroke: #c8c3bc;" data-darkreader-inline-stroke="" />
-            <g id="SVGRepo_iconCarrier">
-                <path fill="#0F1729" d="M471.695 411.923v47.823a6.913 6.913 0 0 1-6.913 6.913H47.217a6.913 6.913 0 0 1-6.913-6.913v-47.823a6.913 6.913 0 0 1 6.913-6.913h417.566a6.913 6.913 0 0 1 6.912 6.913z" style="--darkreader-inline-fill: #0c1221;" data-darkreader-inline-fill="" />
-            </g>
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 11H18V13H6V11Z"/>
         </svg>
     </div>
 `;
@@ -28,11 +24,13 @@ postAdditionOptionsContainer.insertBefore(
 const maximizeButton = document.createElement("button");
 maximizeButton.classList.add("maximizeButton");
 maximizeButton.innerHTML = `
-    <svg width="10px" height="10px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#0F1729" style="--darkreader-inline-stroke: #d6d3cd;" data-darkreader-inline-stroke="">
-        <g id   ="SVGRepo_bgCarrier" stroke-width="0"/>
-        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-        <g id="SVGRepo_iconCarrier"> <path d="M11.5 4.25H6.5C5.43913 4.25 4.42178 4.67142 3.67163 5.42157C2.92149 6.17172 2.5 7.18913 2.5 8.25V18.25C2.5 19.3109 2.92149 20.3283 3.67163 21.0784C4.42178 21.8286 5.43913 22.25 6.5 22.25H16.5C17.5609 22.25 18.5783 21.8286 19.3284 21.0784C20.0786 20.3283 20.5 19.3109 20.5 18.25V13.25" stroke="#0F1729" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="--darkreader-inline-stroke: #d6d3cd;" data-darkreader-inline-stroke=""/> <path d="M11.4297 13.38L20.9197 3.89001" stroke="#0F1729" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="--darkreader-inline-stroke: #d6d3cd;" data-darkreader-inline-stroke=""/> <path d="M15.7891 3.25H19.499C20.0295 3.25 20.5382 3.46074 20.9133 3.83582C21.2883 4.21089 21.499 4.71957 21.499 5.25V8.96002" stroke="#0F1729" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="--darkreader-inline-stroke: #d6d3cd;" data-darkreader-inline-stroke=""/> </g>
-    </svg>
+    <div class="iconContainer">
+        <svg width="800px" height="800px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.5 4.25H6.5C5.43913 4.25 4.42178 4.67142 3.67163 5.42157C2.92149 6.17172 2.5 7.18913 2.5 8.25V18.25C2.5 19.3109 2.92149 20.3283 3.67163 21.0784C4.42178 21.8286 5.43913 22.25 6.5 22.25H16.5C17.5609 22.25 18.5783 21.8286 19.3284 21.0784C20.0786 20.3283 20.5 19.3109 20.5 18.25V13.25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11.4297 13.38L20.9197 3.89001" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15.7891 3.25H19.499C20.0295 3.25 20.5382 3.46074 20.9133 3.83582C21.2883 4.21089 21.499 4.71957 21.499 5.25V8.96002" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
 `;
 maximizeButton.type = "button";
 maximizeButton.addEventListener("click", maximizePostAdditionOptionsContainer);
