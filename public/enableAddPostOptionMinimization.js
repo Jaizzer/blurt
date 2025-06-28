@@ -38,7 +38,9 @@ maximizeButton.addEventListener("click", maximizePostAdditionOptionsContainer);
 function minimizePostAdditionOptionsContainer() {
 	// Hide the "+" and option name
 	const contentsToHide = Array.from(
-		postAdditionOptionsContainer.querySelectorAll("span:nth-child(2), h3, h2")
+		postAdditionOptionsContainer.querySelectorAll(
+			"span:nth-child(2), h3, h2"
+		)
 	);
 	for (const contentToHide of contentsToHide) {
 		contentToHide.hidden = true;
@@ -55,7 +57,9 @@ function minimizePostAdditionOptionsContainer() {
 function maximizePostAdditionOptionsContainer() {
 	// Show the "+" and option name
 	const hiddenContents = Array.from(
-		postAdditionOptionsContainer.querySelectorAll("span:nth-child(2), h3, h2")
+		postAdditionOptionsContainer.querySelectorAll(
+			"span:nth-child(2), h3, h2"
+		)
 	);
 	for (const hiddenContent of hiddenContents) {
 		hiddenContent.hidden = false;
