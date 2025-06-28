@@ -657,7 +657,7 @@ p.signInPrompt {
 
 @keyframes animateFromBottom {
 	from {
-		transform: translate3d(0, 10px, 0);
+		transform: translate3d(0, 1rem, 0);
 		opacity: 0;
 	}
 	to {
@@ -668,7 +668,7 @@ p.signInPrompt {
 
 @keyframes animateToBottom {
 	from {
-		transform: translate3d(0, -10px, 0);
+		transform: translate3d(0, -1rem, 0);
 		opacity: 0;
 	}
 	to {
