@@ -759,6 +759,7 @@ p.signInPrompt {
 }
 
 .mediaUploadsPreview ul {
+	height: 15rem;
 	padding: 0.5rem 0rem;
 	overflow: auto;
 
@@ -777,13 +778,17 @@ p.signInPrompt {
 }
 
 .mediaUploadsPreview img {
-	height: 15rem;
+	height: 90%;
 	border-radius: var(--radius-sm);
 }
 
+.mediaUploadsPreview .iconContainer {
+	height: 90%;
+}
+
 .mediaUploadsPreview .iconContainer svg {
-	width: 15rem;
-	height: 15rem;
+	width: auto;
+	height: 100%;
 
 	border-radius: var(--radius-sm);
 
