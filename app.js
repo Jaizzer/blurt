@@ -65,10 +65,8 @@ app.use((req, res, next) => {
 });
 
 // Make the user data available in every views
-app.use((req, res, next) => {
-	res.locals.user = req.user;
-	return next();
-});
+const userMiddlewares = require("./middlewares/userMiddlewares.js");
+app.use(userMiddlewares.attachUserProfileData);
 
 // Root router
 const rootRouter = require("./routes/rootRouter");
