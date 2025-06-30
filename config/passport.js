@@ -160,6 +160,11 @@ passport.deserializeUser(async (id, done) => {
 	try {
 		const user = await User.getById(id);
 
+        // Prevent null user
+        if (!user) {
+            return done(new Error("User not found"))
+        }
+
 		// Use the default profile picture if the user does not have any profile picture
 		if (!user.profile_picture) {
 			user.profile_picture = process.env.DEFAULT_PROFILE_PICTURE_FILENAME;
