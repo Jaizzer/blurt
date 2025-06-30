@@ -26,10 +26,12 @@ async function attachUserProfileData(req, res, next) {
 		}
 
 		// Attach the profile picture url to the user
-		const filename =
+		req.user.profile_picture =
 			req.user.profile_picture ||
 			process.env.DEFAULT_PROFILE_PICTURE_FILENAME;
-		req.user.profilePictureUrl = await storageServices.getFileUrl(filename);
+		req.user.profilePictureUrl = await storageServices.getFileUrl(
+			req.user.profile_picture
+		);
 
 		// Make user accessible to all views
 		res.locals.user = req.user;
