@@ -5,23 +5,23 @@ const authValidators = require("../validators/authValidators.js");
 const authMiddlewares = require("../middlewares/authMiddlewares.js");
 
 authRouter.get(
-	"/signUp",
+	"/sign-up",
 	authMiddlewares.isUnauthenticated,
 	authControllers.signUpGet
 );
 authRouter.post(
-	"/signUp",
+	"/sign-up",
 	authValidators.signUp,
 	authMiddlewares.validateSignUpForm,
 	authControllers.signUpPost
 );
 authRouter.get(
-	"/signIn",
+	"/sign-in",
 	authMiddlewares.isUnauthenticated,
 	authControllers.signInGet
 );
 authRouter.post(
-	"/signIn",
+	"/sign-in",
 	authValidators.signIn,
 	authMiddlewares.validateSignInForm,
 	authControllers.signInPost
@@ -32,17 +32,17 @@ authRouter.get(
 	authControllers.verifyUser
 );
 authRouter.get(
-	"/signOut",
+	"/sign-out",
 	authMiddlewares.isAuthenticated,
 	authControllers.signOut
 );
 authRouter.get(
-	"/resendVerificationLink",
+	"/resend-verification-link",
 	authMiddlewares.isUnauthenticated,
 	authControllers.renderResendVerificationLinkPage
 );
 authRouter.post(
-	"/resendVerificationLink",
+	"/resend-verification-link",
 	authValidators.resendVerificationLink,
 	authMiddlewares.validateResendVerificationLinkForm,
 	authControllers.resendVerificationLink

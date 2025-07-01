@@ -7,12 +7,12 @@ const authMiddlewares = require("../middlewares/authMiddlewares.js");
 
 rootRouter.get("/", authMiddlewares.isAuthenticated, rootControllers.rootGet);
 rootRouter.get(
-	"/pickUsername",
+	"/pick-username",
 	authMiddlewares.isAuthenticated,
 	rootControllers.pickUsernameGet
 );
 rootRouter.post(
-	"/pickUsername",
+	"/pick-username",
 	authMiddlewares.isAuthenticated,
 	rootValidators.pickUsername,
 	rootMiddlewares.validatePickUsernameForm,

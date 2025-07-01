@@ -2,7 +2,7 @@
 	<h1>Create an account</h1>
 	<p>Provide your details</p>
 
-	<form action="/auth/signUp" method="POST" class="signUpForm">
+	<form action="/auth/sign-up" method="POST" class="signUpForm">
 		<div class="inputField">
 			<label for="email">Email</label>
 			<input type="email" placeholder="Email address" name="email" id="email" value="<%= formFieldData?.email?.value %>" required />
@@ -70,7 +70,7 @@
 		</a>
 	</div>
 
-	<p class="signUpPrompt">Already have an account? <a href="/auth/signIn">Sign In</a></p>
+	<p class="signUpPrompt">Already have an account? <a href="/auth/sign-in">Sign In</a></p>
 
 	<script src="/removeInputErrorMessages.js" defer></script>
 	<script src="/togglePasswordVisibility.js" defer></script>

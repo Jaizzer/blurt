@@ -5,7 +5,7 @@ async function rootGet(req, res, next) {
 	const username = req.user.username;
 	if (!username) {
 		// Render the pick username form if the user does not yet have a username
-		return res.status(200).redirect("/pickUsername");
+		return res.status(200).redirect("/pick-username");
 	} else {
 		// Render the feed if the user already has a username
 		return res.status(200).render("feed");
@@ -19,7 +19,7 @@ async function pickUsernameGet(req, res, next) {
 		return res.status(302).redirect("/");
 	} else {
 		// Render the pick username form if the user does not yet have a username
-		return res.status(200).render("pickUsername", {
+		return res.status(200).render("pick-username", {
 			formFieldData: null,
 		});
 	}

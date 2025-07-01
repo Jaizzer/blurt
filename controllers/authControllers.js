@@ -94,7 +94,7 @@ async function signInPost(req, res, next) {
 			// Attach the error message to be displayed on the signIn page
 			req.flash("error", info.message);
 
-			return res.status(302).redirect("/auth/signIn");
+			return res.status(302).redirect("/auth/sign-in");
 		} else {
 			// Render email-verification-sent page if the user signing-in is not yet verified
 			if (!user.is_verified) {

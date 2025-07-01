@@ -51,7 +51,7 @@ async function isAuthenticated(req, res, next) {
 		return next();
 	} else {
 		// Redirect the user to the sign in page if he/she is not yet authenticated
-		return res.status(302).redirect("/auth/signIn");
+		return res.status(302).redirect("/auth/sign-in");
 	}
 }
 
