@@ -29,7 +29,24 @@ async function createPost(req, res, next) {
 	return res.status(302).redirect("/");
 }
 
+async function renderPostPage(req, res, next) {
+	const postId = req.params.id;
+	const post = await postServices.getPost(postId);
+
+	if (post) {
+		res.status(200).json(post);
+	} else {
+		res.status(404).render("error", {
+			title: "Post Not Found",
+			message:
+				"The post you’re looking for may have been deleted or never existed.",
+			redirectLink: null,
+		});
+	}
+}
+
 module.exports = {
 	renderCreatePostPage: asyncHandler(renderCreatePostPage),
 	createPost: asyncHandler(createPost),
+	renderPostPage: asyncHandler(renderPostPage),
 };

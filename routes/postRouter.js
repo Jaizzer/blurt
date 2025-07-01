@@ -21,4 +21,6 @@ postRouter.post(
 	postControllers.createPost
 );
 
+postRouter.get("/:id", authMiddlewares.isAuthenticated, postControllers.renderPostPage);
+
 module.exports = postRouter;
