@@ -26,7 +26,7 @@ async function sendEmailVerification({
 
 	const verificationLinkUrl = `${baseUrl}/verify/${emailVerificationString}`;
 
-	const resendVerificationLinkUrl = `${baseUrl}/resendVerificationLink`;
+	const resendVerificationLinkUrl = `${baseUrl}/resend-verification-link`;
 
 	const mailOptions = {
 		from: "Blurt",
