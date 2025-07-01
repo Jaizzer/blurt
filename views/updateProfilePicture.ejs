@@ -1,0 +1,11 @@
+<section class="updateProfilePictureSection">
+	<form action="/user/update-profile-picture" method="POST" class="updateProfilePictureForm" enctype="multipart/form-data">
+		<div class="inputField">
+			<input type="file" id="profilePicture" name="profilePicture" accept="image/*" />
+			<% if (formFieldData?.profilePicture?.error) {%>
+			<p class="errorMessage"><%= formFieldData?.profilePicture.error %></p>
+			<% } %>
+		</div>
+		<button type="submit" class="updateProfilePictureButton">Update Profile Picture</button>
+	</form>
+</section>

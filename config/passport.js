@@ -7,6 +7,7 @@ const User = require("../models/userModel.js");
 const LocalAccount = require("../models/localAccountModel.js");
 const LinkedAccount = require("../models/linkedAccountModel.js");
 const path = require("path");
+const storageServices = require("../services/storageServices.js");
 const isEmailOrUsername = require("../utils/isEmailOrUsername.js");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
@@ -95,7 +96,7 @@ passport.use(
 					googleAccount = await LinkedAccount.add({
 						provider: "Google",
 						providerUserId: profile.id,
-                        email: profile.email,
+						email: profile.email,
 						userId: newUser.id,
 					});
 				}
@@ -158,6 +159,17 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
 	try {
 		const user = await User.getById(id);
+
+		// Use the default profile picture if the user does not have any profile picture
+		if (!user.profile_picture) {
+			user.profile_picture = process.env.DEFAULT_PROFILE_PICTURE_FILENAME;
+		}
+
+		// Get the profile picture URL
+		user.profilePictureUrl = await storageServices.getFileUrl(
+			user.profile_picture
+		);
+
 		done(null, user);
 	} catch (error) {
 		done(error);

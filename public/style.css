@@ -797,3 +797,10 @@ p.signInPrompt {
 }
 
 /* End of Create Posts Stylings */
+
+img.profilePicture {
+	width: 5rem;
+	height: 5rem;
+	object-fit: cover;
+	border-radius: var(--radius-full);
+}

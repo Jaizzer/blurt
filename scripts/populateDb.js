@@ -181,6 +181,11 @@ const query17 = `
     WHERE id >=9;
 `
 
+const query18 = `
+    ALTER TABLE users
+    ADD column profile_picture TEXT;
+`
+
 
 async function main() {
 	let client;
@@ -208,7 +213,7 @@ async function main() {
 
 		await client.connect();
 
-		await client.query(query17);
+		await client.query(query18);
 
 		console.log(`Database setup complete.`);
 	} catch (error) {

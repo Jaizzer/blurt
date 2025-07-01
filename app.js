@@ -82,6 +82,10 @@ app.use("/auth", authRouter);
 const postRouter = require("./routes/postRouter.js");
 app.use("/post", postRouter);
 
+// User Router
+const userRouter = require("./routes/userRouter.js");
+app.use("/user", userRouter);
+
 // Main error-handling middleware
 app.use((error, req, res, next) => {
 	console.error(error.stack);

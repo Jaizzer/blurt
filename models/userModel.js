@@ -1,15 +1,15 @@
 const pool = require("../config/pool.js");
 
-async function add({ username }) {
+async function add({ username, profilePicture }) {
 	try {
 		const { rows } = await pool.query(
 			`
             INSERT INTO users
-            (username)
-            VALUES ($1)
+            (username, profile_picture)
+            VALUES ($1, $2)
             RETURNING *;
         `,
-			[username]
+			[username, profilePicture]
 		);
 
 		return rows[0];
@@ -110,6 +110,23 @@ async function getWithLocalAccountByUsername(username) {
 	}
 }
 
+async function updateProfilePicture({ profilePicture, id }) {
+	try {
+		await pool.query(
+			`
+            UPDATE users
+            SET profile_picture = $1
+            WHERE id = $2;
+        `,
+			[profilePicture, id]
+		);
+		console.log("Profile picture updated successfully.");
+	} catch (error) {
+		console.error("Error updating profile picture.");
+		throw error;
+	}
+}
+
 module.exports = {
 	add,
 	getById,
@@ -117,4 +134,5 @@ module.exports = {
 	updateUsername,
 	getWithLocalAccountByEmail,
 	getWithLocalAccountByUsername,
+	updateProfilePicture,
 };
