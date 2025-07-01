@@ -37,6 +37,7 @@ async function sendEmailVerification({
                 <p>Thanks for signing up to <strong>Blurt</strong>!</p>
                 <p>Please verify your email address by clicking the link below:</p>
                 <p><a href="${verificationLinkUrl}">Verify Email</a></p>
+                <p style="color: #d9534f; font-weight: bold;">⚠️ Note: This link is only valid for 5 minutes.</p>
                 <hr>
                 <p>If the link is not working or has expired, you can request a new one by visiting <a href="${resendVerificationLinkUrl}">this page</a>.</p>
             `,
