@@ -12,8 +12,8 @@ async function add({
 		const { rows } = await pool.query(
 			`
             INSERT INTO posts
-            (description, user_id, feeling_id, date_uploaded, parent_post_id)
-            VALUES ($1, $2, $3, $4, $5)
+            (description, user_id, feeling_id, date_uploaded, date_updated, parent_post_id)
+            VALUES ($1, $2, $3, $4, $4, $5)
             RETURNING *;
         `,
 			[description, userId, feelingId, dateUploaded, parentPostId]
@@ -26,6 +26,7 @@ async function add({
 			for (const mediaUpload of mediaUploads) {
 				let childPostId = await add({
 					parentPostId: postId,
+					dateUploaded,
 				});
 				await saveMediaUpload({ mediaUpload, postId: childPostId });
 			}
@@ -76,8 +77,8 @@ async function getPostById(id) {
 			`
             SELECT posts.id,
                 posts.description,
-                posts.date_updated,
                 posts.parent_post_id,
+                posts.date_uploaded,
                 users.user,
                 feeling,
                 likers,
@@ -98,7 +99,7 @@ async function getPostById(id) {
                             WHEN child_posts.parent_post_id IS NULL THEN child_posts.feeling_id
                             ELSE parent_posts.feeling_id
                         END AS feeling_id,
-                        child_posts.date_updated,
+                        child_posts.date_uploaded,
                         child_posts.parent_post_id
                     FROM posts AS child_posts
                         LEFT JOIN posts AS parent_posts ON child_posts.parent_post_id = parent_posts.id
