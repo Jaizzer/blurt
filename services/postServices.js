@@ -53,8 +53,11 @@ async function getPost(id) {
 	const media =
 		post.media &&
 		(await Promise.all(
-			post?.media?.map((media) => {
-				return storageServices.getFileUrl(media);
+			post?.media?.map(async (media) => {
+				return {
+					...media,
+					mediaUrl: await storageServices.getFileUrl(media.filename),
+				};
 			})
 		));
 

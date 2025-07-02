@@ -186,6 +186,11 @@ const query18 = `
     ADD column profile_picture TEXT;
 `
 
+const query19 =  `
+    ALTER TABLE posts
+    ADD COLUMN parent_post_id INTEGER REFERENCES posts(id)
+    ON DELETE CASCADE;
+`
 
 async function main() {
 	let client;
@@ -213,7 +218,7 @@ async function main() {
 
 		await client.connect();
 
-		await client.query(query18);
+		await client.query(query19);
 
 		console.log(`Database setup complete.`);
 	} catch (error) {
