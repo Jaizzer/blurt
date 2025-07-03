@@ -99,6 +99,76 @@ cp .env.example .env
 npm start
 ```
 
+# .env.example
+
+This file contains the environment variables needed to configure and run the Blurt application.
+
+## Deployment
+
+```
+NODE_ENVIRONMENT=""
+```
+
+## Email
+
+```
+EMAIL_ADDRESS=""
+EMAIL_APP_PASSWORD=""
+```
+
+## Google Authentication
+
+```
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+```
+
+## Github Authentication
+
+```
+GITHUB_CLIENT_ID=""
+GITHUB_CLIENT_SECRET=""
+```
+
+## Session
+
+```
+SECRET=""
+```
+
+## Database
+
+```
+PRODUCTION_DB_URL=""
+LOCAL_DB_URL=""
+PORT=9000
+PRODUCTION_URL=""
+```
+
+## Amazon S3
+
+```
+BUCKET_NAME=""
+BUCKET_REGION=""
+SECRET_ACCESS_KEY=""
+ACCESS_KEY_ID=""
+```
+
+## Cloudfront
+
+```
+CLOUDFRONT_DISTRIBUTION_ID=""
+CLOUDFRONT_DOMAIN_NAME=""
+CLOUDFRONT_KEY_PAIR_ID=""
+CLOUDFRONT_PRIVATE_KEY=""
+```
+
+## Default Assets
+
+```
+DEFAULT_PROFILE_PICTURE_FILENAME=""
+```
+
 ---
 
 ## 🧪 Test It Locally
